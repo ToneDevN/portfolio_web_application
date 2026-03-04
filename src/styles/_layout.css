@@ -1,0 +1,7 @@
+/* ─── Layout Utilities ──────────────────────────────── */
+.section-pad { padding: 7rem 1.5rem; }
+.container    { max-width: 1200px; margin-inline: auto; width: 100%; }
+
+@media (max-width: 768px) {
+  .section-pad { padding: 4.5rem 1.25rem; }
+}

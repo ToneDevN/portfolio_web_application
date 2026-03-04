@@ -1,0 +1,31 @@
+/* ─── Design Tokens (CSS Custom Properties) ─────────── */
+
+:root {
+  --bg:          #07070e;
+  --bg-2:        #0e0e1c;
+  --bg-3:        #16162a;
+  --text:        #f0f0ff;          /* slightly warmer white — less glare */
+  --text-2:      #c8c8e8;          /* secondary text: dimmed but clear */
+  --text-muted:  #9090b4;          /* muted: higher contrast than old #7070a0 */
+  --blue:        #00b4ff;
+  --pink:        #ff1a6e;
+  --border:      rgba(0, 180, 255, 0.12);
+  --glass:       rgba(10, 10, 22, 0.7);
+  --card-bg:     rgba(14, 14, 28, 0.65);
+  --dot-color:   rgba(0, 180, 255, 0.07);
+}
+
+html.light {
+  --bg:          #f4f4ff;
+  --bg-2:        #eaeaff;
+  --bg-3:        #ffffff;
+  --text:        #08081a;          /* deeper, crisper black */
+  --text-2:      #2e2e50;          /* secondary text in light mode */
+  --text-muted:  #4a4a72;          /* slightly darker for contrast */
+  --blue:        #0055cc;
+  --pink:        #cc0055;
+  --border:      rgba(0, 85, 204, 0.15);
+  --glass:       rgba(244, 244, 255, 0.85);
+  --card-bg:     rgba(255, 255, 255, 0.65);
+  --dot-color:   rgba(0, 85, 204, 0.055);
+}

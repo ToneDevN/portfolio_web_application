@@ -1,0 +1,416 @@
+---
+interface SkillItem { name: string; slug: string | null; }
+interface SkillGroup {
+  category: string;
+  icon: string;
+  accent: 'blue' | 'pink' | 'mixed';
+  skills: SkillItem[];
+}
+const skillGroups: SkillGroup[] = [
+  {
+    category: 'Frontend', icon: '◈', accent: 'blue',
+    skills: [
+      { name: 'React',         slug: 'react'       },
+      { name: 'Next.js',       slug: 'nextdotjs'   },
+      { name: 'Astro',         slug: 'astro'       },
+      { name: 'Vue.js',        slug: 'vuedotjs'    },
+      { name: 'TypeScript',    slug: 'typescript'  },
+      { name: 'TailwindCSS',   slug: 'tailwindcss' },
+      { name: 'Framer Motion', slug: 'framer'      },
+      { name: 'HTML / CSS',    slug: 'html5'       },
+    ],
+  },
+  {
+    category: 'Backend', icon: '◉', accent: 'pink',
+    skills: [
+      { name: 'Node.js',    slug: 'nodedotjs'  },
+      { name: 'Express',    slug: 'express'    },
+      { name: 'Fastify',    slug: 'fastify'    },
+      { name: 'Python',     slug: 'python'     },
+      { name: 'REST APIs',  slug: null         },
+      { name: 'GraphQL',    slug: 'graphql'    },
+      { name: 'PostgreSQL', slug: 'postgresql' },
+      { name: 'MongoDB',    slug: 'mongodb'    },
+    ],
+  },
+  {
+    category: 'Tools & DevOps', icon: '◆', accent: 'mixed',
+    skills: [
+      { name: 'Git / GitHub', slug: 'github'    },
+      { name: 'Docker',       slug: 'docker'    },
+      { name: 'CI/CD',        slug: null        },
+      { name: 'Linux',        slug: 'linux'     },
+      { name: 'Figma',        slug: 'figma'     },
+      { name: 'Vercel',       slug: 'vercel'    },
+      { name: 'AWS',          slug: 'amazonaws' },
+      { name: 'Bun',          slug: 'bun'       },
+    ],
+  },
+];
+
+const stats = [
+  { value: '3+',  label: 'Years Coding',     icon: '⏳' },
+  { value: '20+', label: 'Projects Built',   icon: '🚀' },
+  { value: '15+', label: 'Technologies',     icon: '⚡' },
+  { value: '∞',   label: 'Things to Learn',  icon: '✦'  },
+];
+---
+
+<section id="skills" class="section-pad relative overflow-hidden">
+
+  <!-- Ambient background glows -->
+  <div class="sk-glow sk-glow--blue"></div>
+  <div class="sk-glow sk-glow--pink"></div>
+
+  <!-- Ghost Section Number -->
+  <span class="section-num" style="top:50%;left:-2%;transform:translateY(-50%);">02</span>
+
+  <div class="container mx-auto relative z-10">
+
+    <!-- ── Header ───────────────────────────────────────── -->
+    <div class="sk-header reveal">
+      <div class="sk-header-left">
+        <p class="section-subtitle">What I Know</p>
+        <h2 class="sk-title">
+          Skills &amp; <span class="gradient-text">Technologies</span>
+        </h2>
+      </div>
+      <p class="sk-header-desc reveal reveal-delay-1">
+        A toolkit shaped by years of building,<br/>
+        breaking, and learning.
+      </p>
+    </div>
+
+    <!-- ── Stats Strip ──────────────────────────────────── -->
+    <div class="sk-stats-grid reveal">
+      {stats.map((s, i) => (
+        <div class={`sk-stat-card reveal reveal-delay-${i + 1}`}>
+          <div class="sk-stat-val gradient-text">{s.value}</div>
+          <div class="sk-stat-label">{s.label}</div>
+          <div class="sk-stat-shimmer"></div>
+        </div>
+      ))}
+    </div>
+
+    <!-- ── Skill Group Cards ──────────────────────────────── -->
+    <div class="sk-groups-grid">
+      {skillGroups.map((group, gi) => (
+        <div class={`reveal reveal-delay-${gi + 1} sk-group-card sk-group-card--${group.accent}`}>
+          <!-- Sheen stripe -->
+          <div class="sk-group-stripe"></div>
+
+          <div class="sk-group-header">
+            <div class={`sk-cat-icon sk-cat-icon--${group.accent}`}>
+              {group.accent === 'mixed'
+                ? <span class="gradient-text">{group.icon}</span>
+                : group.icon}
+            </div>
+            <div>
+              <h3 class={`sk-cat-title sk-cat-title--${group.accent}`}>{group.category}</h3>
+              <span class="sk-cat-count">{group.skills.length} skills</span>
+            </div>
+          </div>
+
+          <div class="sk-tags">
+            {group.skills.map(skill => (
+              <span class={`sk-tag sk-tag--${group.accent}`}>
+                {skill.slug && (
+                  <img
+                    src={`https://cdn.simpleicons.org/${skill.slug}/ffffff`}
+                    class="sk-tag-icon" width="11" height="11"
+                    alt={skill.name} loading="lazy" decoding="async"
+                  />
+                )}
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+
+  // Subtle parallax on glow orbs
+  const glows = document.querySelectorAll<HTMLElement>('.sk-glow');
+  window.addEventListener('mousemove', (e) => {
+    const cx = window.innerWidth  / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
+    glows.forEach((g, i) => {
+      const s = i === 0 ? 18 : 12;
+      g.style.transform = `translate(${dx * s}px, ${dy * s}px)`;
+    });
+  });
+</script>
+
+<style>
+  /* ─── Ambient Glows ──────────────────────────────────── */
+  .sk-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    transition: transform 0.6s ease;
+    z-index: 0;
+  }
+  .sk-glow--blue {
+    width: 600px; height: 600px;
+    top: -200px; left: -180px;
+    background: radial-gradient(circle, rgba(0,180,255,0.14) 0%, transparent 65%);
+  }
+  .sk-glow--pink {
+    width: 380px; height: 380px;
+    bottom: -100px; right: 8%;
+    background: radial-gradient(circle, rgba(255,26,110,0.12) 0%, transparent 65%);
+  }
+
+  /* ─── Header (minimal, left-aligned) ────────────────── */
+  .sk-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .sk-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  }
+
+  .sk-header-left { flex-shrink: 0; }
+
+  .sk-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-top: 0.4rem;
+  }
+
+  .sk-header-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 280px;
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .sk-header-desc { text-align: left; max-width: 100%; }
+  }
+
+  /* ─── Stats Grid ─────────────────────────────────────── */
+  .sk-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 768px) {
+    .sk-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .sk-stat-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1rem 0.85rem;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .sk-stat-card:hover {
+    border-color: rgba(0,180,255,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+  }
+  .sk-stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .sk-stat-label {
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  /* Shimmer sweep */
+  .sk-stat-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+  .sk-stat-card:hover .sk-stat-shimmer { transform: translateX(100%); }
+
+  /* ─── Skill Groups Grid ─────────────────────────────── */
+  .sk-groups-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 900px) {
+    .sk-groups-grid { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 600px) and (max-width: 900px) {
+    .sk-groups-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .sk-group-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem 1.4rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .sk-group-card:hover { transform: translateY(-3px); }
+
+  .sk-group-card--blue  { border-color: rgba(0,180,255,0.14); }
+  .sk-group-card--pink  { border-color: rgba(255,26,110,0.14); }
+  .sk-group-card--mixed { border-color: rgba(0,180,255,0.1); }
+
+  .sk-group-card--blue:hover  { border-color: rgba(0,180,255,0.4); box-shadow: 0 8px 32px rgba(0,180,255,0.08); }
+  .sk-group-card--pink:hover  { border-color: rgba(255,26,110,0.4); box-shadow: 0 8px 32px rgba(255,26,110,0.08); }
+  .sk-group-card--mixed:hover { border-color: rgba(0,180,255,0.35); box-shadow: 0 8px 32px rgba(0,180,255,0.07); }
+
+  /* Top stripe */
+  .sk-group-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .sk-group-card--blue  .sk-group-stripe { background: linear-gradient(90deg, var(--blue), transparent); }
+  .sk-group-card--pink  .sk-group-stripe { background: linear-gradient(90deg, var(--pink), transparent); }
+  .sk-group-card--mixed .sk-group-stripe { background: linear-gradient(90deg, var(--blue), var(--pink)); }
+
+  .sk-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .sk-cat-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .sk-cat-icon--blue  { background: rgba(0,180,255,0.12); color: var(--blue); border: 1px solid rgba(0,180,255,0.2); }
+  .sk-cat-icon--pink  { background: rgba(255,26,110,0.12); color: var(--pink); border: 1px solid rgba(255,26,110,0.2); }
+  .sk-cat-icon--mixed { background: rgba(0,180,255,0.08); border: 1px solid rgba(0,180,255,0.15); }
+
+  .sk-cat-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    line-height: 1.2;
+  }
+  .sk-cat-title--blue  { color: var(--blue); }
+  .sk-cat-title--pink  { color: var(--pink); }
+  .sk-cat-title--mixed { background: linear-gradient(135deg, var(--blue), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .sk-cat-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── Skill Tags ─────────────────────────────────────── */
+  .sk-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .sk-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    border: 1px solid;
+    transition: all 0.22s ease;
+    cursor: default;
+  }
+  .sk-tag--blue {
+    background: rgba(0,180,255,0.06);
+    border-color: rgba(0,180,255,0.18);
+    color: var(--text-2);
+  }
+  .sk-tag--blue:hover {
+    background: rgba(0,180,255,0.14);
+    border-color: rgba(0,180,255,0.5);
+    color: var(--blue);
+    transform: translateY(-2px);
+  }
+  .sk-tag--pink {
+    background: rgba(255,26,110,0.06);
+    border-color: rgba(255,26,110,0.18);
+    color: var(--text-2);
+  }
+  .sk-tag--pink:hover {
+    background: rgba(255,26,110,0.14);
+    border-color: rgba(255,26,110,0.5);
+    color: var(--pink);
+    transform: translateY(-2px);
+  }
+  .sk-tag--mixed {
+    background: rgba(0,180,255,0.05);
+    border-color: rgba(0,180,255,0.15);
+    color: var(--text-2);
+  }
+  .sk-tag--mixed:hover {
+    background: rgba(0,180,255,0.1);
+    border-color: rgba(0,180,255,0.4);
+    color: var(--blue);
+    transform: translateY(-2px);
+  }
+
+  .sk-tag-icon {
+    width: 11px; height: 11px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.75;
+    filter: brightness(1.1);
+    transition: opacity 0.2s;
+  }
+  .sk-tag:hover .sk-tag-icon { opacity: 1; }
+
+
+  /* ─── Light Mode Overrides ───────────────────────────── */
+  html.light .sk-tag--blue  { color: var(--text-2); }
+  html.light .sk-tag--pink  { color: var(--text-2); }
+  html.light .sk-tag--mixed { color: var(--text-2); }
+  html.light .sk-tag-icon   { filter: none; opacity: 0.85; }
+  html.light .sk-stat-card:hover { border-color: rgba(0,85,204,0.4); }
+  html.light .sk-cat-icon--blue  { background: rgba(0,85,204,0.08); border-color: rgba(0,85,204,0.2); color: var(--blue); }
+  html.light .sk-cat-icon--pink  { background: rgba(204,0,85,0.08); border-color: rgba(204,0,85,0.2); color: var(--pink); }
+  html.light .sk-tag-icon { filter: none; opacity: 0.85; }
+</style>

@@ -1,0 +1,463 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Portfolio — Creative Developer",
+  description = "Personal portfolio showcasing my projects, skills and creative work.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- ── Global Background Animation ──────────────── -->
+    <div id="bg-layer" aria-hidden="true">
+      <canvas id="bg-canvas"></canvas>
+      <!-- Cursor spotlight -->
+      <div id="mouse-glow"></div>
+      <div class="bg-orb bg-orb--a"></div>
+      <div class="bg-orb bg-orb--b"></div>
+      <div class="bg-orb bg-orb--c"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <slot />
+
+    <!-- Theme init: run before paint to avoid FOUC -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = saved ?? (prefersDark ? "dark" : "light");
+        document.documentElement.classList.toggle("light", theme === "light");
+        localStorage.setItem("theme", theme);
+      })();
+    </script>
+
+    <!-- Global Interactions -->
+    <script>
+      // ── Scroll Progress ─────────────────────────────
+      const progressBar = document.getElementById(
+        "scroll-progress",
+      ) as HTMLElement;
+      window.addEventListener(
+        "scroll",
+        () => {
+          const scrolled = window.scrollY;
+          const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const pct = (scrolled / maxScroll) * 100;
+          if (progressBar) progressBar.style.width = pct + "%";
+        },
+        { passive: true },
+      );
+
+      // ── Intersection Observer — Scroll Reveal ───────
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // ── Active Nav Link ─────────────────────────────
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${entry.target.id}`) {
+                  link.classList.add("active");
+                }
+              });
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+
+      sections.forEach((section) => sectionObserver.observe(section));
+    </script>
+
+    <!-- ── Background Animation ──────────────────────────── -->
+    <style>
+      #bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      #bg-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ─ Cursor spotlight ───────────────────────────── */
+      #mouse-glow {
+        --gx: 50%;
+        --gy: 50%;
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+        transform: translate(calc(var(--gx) - 50%), calc(var(--gy) - 50%));
+        background: radial-gradient(
+          circle,
+          rgba(0, 180, 255, 0.13) 0%,
+          rgba(0, 180, 255, 0.055) 35%,
+          transparent 70%
+        );
+        filter: blur(28px);
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        will-change: transform;
+      }
+      html.light #mouse-glow {
+        background: radial-gradient(
+          circle,
+          rgba(0, 85, 204, 0.09) 0%,
+          rgba(0, 85, 204, 0.04) 35%,
+          transparent 70%
+        );
+        mix-blend-mode: multiply;
+      }
+
+      /* ─ Drifting gradient orbs ────────────────────────── */
+      .bg-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        will-change: transform, opacity;
+      }
+      .bg-orb--a {
+        width: 55vw;
+        height: 55vw;
+        top: -15vw;
+        left: -15vw;
+        background: radial-gradient(
+          circle,
+          rgba(0, 180, 255, 0.09) 0%,
+          transparent 65%
+        );
+        animation: orb-drift-a 22s ease-in-out infinite alternate;
+      }
+      .bg-orb--b {
+        width: 40vw;
+        height: 40vw;
+        bottom: -10vw;
+        right: -10vw;
+        background: radial-gradient(
+          circle,
+          rgba(255, 26, 110, 0.08) 0%,
+          transparent 65%
+        );
+        animation: orb-drift-b 28s ease-in-out infinite alternate;
+      }
+      .bg-orb--c {
+        width: 30vw;
+        height: 30vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          circle,
+          rgba(0, 180, 255, 0.04) 0%,
+          transparent 65%
+        );
+        animation: orb-drift-c 18s ease-in-out infinite alternate;
+      }
+
+      @keyframes orb-drift-a {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(12vw, 8vw) scale(1.08);
+        }
+        66% {
+          transform: translate(5vw, 18vw) scale(0.96);
+        }
+        100% {
+          transform: translate(16vw, 4vw) scale(1.04);
+        }
+      }
+      @keyframes orb-drift-b {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(-10vw, -6vw) scale(1.1);
+        }
+        66% {
+          transform: translate(-4vw, -14vw) scale(0.94);
+        }
+        100% {
+          transform: translate(-14vw, -3vw) scale(1.06);
+        }
+      }
+      @keyframes orb-drift-c {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(calc(-50% + 8vw), calc(-50% - 6vw)) scale(1.15);
+        }
+        100% {
+          transform: translate(calc(-50% - 6vw), calc(-50% + 9vw)) scale(0.88);
+        }
+      }
+
+      /* Light mode: softer / warmer tones */
+      html.light .bg-orb--a {
+        background: radial-gradient(
+          circle,
+          rgba(0, 85, 204, 0.06) 0%,
+          transparent 65%
+        );
+      }
+      html.light .bg-orb--b {
+        background: radial-gradient(
+          circle,
+          rgba(204, 0, 85, 0.05) 0%,
+          transparent 65%
+        );
+      }
+      html.light .bg-orb--c {
+        background: radial-gradient(
+          circle,
+          rgba(0, 85, 204, 0.03) 0%,
+          transparent 65%
+        );
+      }
+    </style>
+
+    <script>
+      // ─ Particle field on canvas ──────────────────────────────
+      const bgCanvas = document.getElementById(
+        "bg-canvas",
+      ) as HTMLCanvasElement;
+      if (bgCanvas) {
+        const ctx = bgCanvas.getContext("2d")!;
+        const COUNT = 58;
+        const CONNECT_DIST = 160;
+        const MOUSE_RADIUS = 120;
+        const SPEED = 0.28;
+
+        let W = 0,
+          H = 0;
+        let mouseX = -9999,
+          mouseY = -9999;
+
+        interface Particle {
+          x: number;
+          y: number;
+          vx: number;
+          vy: number;
+          r: number;
+          alpha: number;
+        }
+
+        let particles: Particle[] = [];
+
+        function resize() {
+          W = bgCanvas.width = window.innerWidth;
+          H = bgCanvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize, { passive: true });
+
+        function mkParticle(): Particle {
+          const angle = Math.random() * Math.PI * 2;
+          const spd = SPEED * (0.4 + Math.random() * 0.6);
+          return {
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: Math.cos(angle) * spd,
+            vy: Math.sin(angle) * spd,
+            r: 1.2 + Math.random() * 1.2,
+            alpha: 0.18 + Math.random() * 0.28,
+          };
+        }
+
+        particles = Array.from({ length: COUNT }, mkParticle);
+
+        window.addEventListener(
+          "mousemove",
+          (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+          },
+          { passive: true },
+        );
+        window.addEventListener("mouseleave", () => {
+          mouseX = -9999;
+          mouseY = -9999;
+        });
+
+        function isLight() {
+          return document.documentElement.classList.contains("light");
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+
+          const light = isLight();
+          const dotColor = light ? "0,85,204" : "0,180,255";
+          const lineColor = light ? "0,85,204" : "0,180,255";
+
+          // Update + draw dots
+          for (const p of particles) {
+            // Mouse repel / attract
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < MOUSE_RADIUS) {
+              const force = (1 - dist / MOUSE_RADIUS) * 0.018;
+              p.vx += dx * force;
+              p.vy += dy * force;
+              // Clamp speed
+              const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+              if (spd > SPEED * 3.5) {
+                p.vx = (p.vx / spd) * SPEED * 3.5;
+                p.vy = (p.vy / spd) * SPEED * 3.5;
+              }
+            } else {
+              // Dampen back to normal speed
+              p.vx *= 0.992;
+              p.vy *= 0.992;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap edges
+            if (p.x < -10) p.x = W + 10;
+            if (p.x > W + 10) p.x = -10;
+            if (p.y < -10) p.y = H + 10;
+            if (p.y > H + 10) p.y = -10;
+
+            // Draw dot
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${dotColor},${p.alpha})`;
+            ctx.fill();
+          }
+
+          // Draw connecting lines
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const a = particles[i],
+                b = particles[j];
+              const dx = a.x - b.x,
+                dy = a.y - b.y;
+              const d = Math.sqrt(dx * dx + dy * dy);
+              if (d < CONNECT_DIST) {
+                const alpha = (1 - d / CONNECT_DIST) * 0.12;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = `rgba(${lineColor},${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(draw);
+        }
+
+        draw();
+      }
+
+      // ─ Cursor spotlight glow ─────────────────────────────────
+      (() => {
+        const glow = document.getElementById(
+          "mouse-glow",
+        ) as HTMLElement | null;
+        if (!glow) return;
+
+        let targetX = window.innerWidth / 2;
+        let targetY = window.innerHeight / 2;
+        let currentX = targetX;
+        let currentY = targetY;
+        let visible = false;
+
+        // Track real mouse position
+        window.addEventListener(
+          "mousemove",
+          (e) => {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            if (!visible) {
+              visible = true;
+              glow.style.opacity = "1";
+            }
+          },
+          { passive: true },
+        );
+
+        window.addEventListener(
+          "mouseleave",
+          () => {
+            visible = false;
+            glow.style.opacity = "0";
+          },
+          { passive: true },
+        );
+
+        // rAF lerp loop — smooth trailing
+        const LERP = 0.072;
+        function tick() {
+          currentX += (targetX - currentX) * LERP;
+          currentY += (targetY - currentY) * LERP;
+          glow?.style.setProperty("--gx", currentX + "px");
+          glow?.style.setProperty("--gy", currentY + "px");
+          requestAnimationFrame(tick);
+        }
+        tick();
+      })();
+    </script>
+  </body>
+</html>

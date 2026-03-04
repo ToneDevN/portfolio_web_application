@@ -1,0 +1,213 @@
+---
+const stats = [
+  { value: "3+", label: "Years Experience" },
+  { value: "50+", label: "Projects Completed" },
+  { value: "20+", label: "Happy Clients" },
+  { value: "10+", label: "Contributions" },
+];
+---
+
+<section id="about" class="section-pad relative overflow-hidden">
+  <!-- Aurora -->
+  <div
+    class="aurora aurora-pink"
+    style="width:480px;height:480px;top:-120px;right:-120px;opacity:0.18;"
+  >
+  </div>
+  <div
+    class="aurora aurora-blue"
+    style="width:280px;height:280px;bottom:-60px;left:5%;opacity:0.12;"
+  >
+  </div>
+
+  <!-- Ghost Number -->
+  <span
+    class="section-num"
+    style="top: 50%; right: -2%; transform: translateY(-50%);">01</span
+  >
+
+  <div class="container mx-auto relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- ── Left: Image ─────────────────────────────── -->
+      <div class="reveal from-left flex justify-center lg:justify-start">
+        <div class="relative">
+          <!-- Gradient ring -->
+          <div
+            class="absolute -inset-[2px] rounded-2xl opacity-70"
+            style="background: linear-gradient(135deg, var(--blue), var(--pink)); filter: blur(2px);"
+          >
+          </div>
+
+          <!-- Image frame -->
+          <div
+            class="relative rounded-2xl overflow-hidden ui-card"
+            style="width:320px;height:400px"
+          >
+            <!-- Grid texture inside card -->
+            <div
+              class="absolute inset-0 opacity-[0.06]"
+              style="background-image: radial-gradient(circle, var(--blue) 1px, transparent 1px); background-size: 24px 24px;"
+            >
+            </div>
+
+            <!-- Gradient wash -->
+            <div
+              class="absolute inset-0"
+              style="background: linear-gradient(160deg, rgba(0,180,255,0.08) 0%, rgba(255,26,110,0.06) 100%);"
+            >
+            </div>
+
+            <!-- Avatar SVG -->
+            <div class="absolute inset-0 flex items-end justify-center">
+              <svg
+                viewBox="0 0 200 280"
+                width="230"
+                class="relative z-10"
+                style="opacity:0.75"
+              >
+                <defs>
+                  <linearGradient
+                    id="avGrad"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stop-color="#00b4ff" stop-opacity="0.95"
+                    ></stop>
+                    <stop offset="100%" stop-color="#ff1a6e" stop-opacity="0.75"
+                    ></stop>
+                  </linearGradient>
+                </defs>
+                <circle cx="100" cy="68" r="46" fill="url(#avGrad)"></circle>
+                <path
+                  d="M38 172 Q38 132 100 128 Q162 132 162 172 L172 280 H28 Z"
+                  fill="url(#avGrad)"
+                  opacity="0.75"></path>
+                <circle cx="87" cy="60" r="9" fill="white" opacity="0.22"
+                ></circle>
+              </svg>
+            </div>
+
+            <!-- Badges -->
+            <div
+              class="absolute top-4 left-4 glass rounded-lg px-3 py-1.5 z-20"
+            >
+              <p class="font-mono text-xs" style="color: var(--blue)">
+                ⚡ Open to work
+              </p>
+            </div>
+            <div
+              class="absolute bottom-4 right-4 glass rounded-lg px-3 py-1.5 flex items-center gap-2 z-20"
+            >
+              <span class="w-2 h-2 rounded-full" style="background: var(--blue)"
+              ></span>
+              <p class="font-mono text-xs" style="color: var(--text)">
+                Bangkok, TH 🇹🇭
+              </p>
+            </div>
+          </div>
+
+          <!-- Decorative rings -->
+          <div
+            class="absolute -bottom-5 -left-5 w-20 h-20 rounded-xl"
+            style="border: 1.5px solid rgba(255,26,110,0.35)"
+          >
+          </div>
+          <div
+            class="absolute -top-5 -right-5 w-14 h-14 rounded-lg"
+            style="border: 1.5px solid rgba(0,180,255,0.35)"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Right: Content ──────────────────────────── -->
+      <div class="relative z-10">
+        <p class="section-subtitle reveal">About Me</p>
+        <h2 class="section-title reveal reveal-delay-1 mb-6">
+          Crafting digital<br />
+          <span class="gradient-text">experiences</span> with<br />
+          purpose &amp; passion
+        </h2>
+
+        <div class="reveal reveal-delay-2 space-y-5 mb-8">
+          <p
+            style="font-size: 1.025rem; line-height: 1.8; color: var(--text-2)"
+          >
+            Hi! I'm <span style="color:var(--text);font-weight:600"
+              >Nawamin Comjun</span
+            >, a passionate full-stack developer based in Bangkok, Thailand. I
+            specialize in building modern, performant web applications that
+            deliver exceptional user experiences.
+          </p>
+          <p
+            style="font-size: 1.025rem; line-height: 1.8; color: var(--text-2)"
+          >
+            When I'm not coding, you'll find me exploring new design trends,
+            contributing to open source, or experimenting with creative tech. I
+            believe great software lives at the intersection of
+            <span style="color:var(--text); font-weight:500"
+              >beautiful design</span
+            > and
+            <span style="color:var(--text); font-weight:500"
+              >solid engineering</span
+            >.
+          </p>
+        </div>
+
+        <!-- Highlight Tags -->
+        <div class="reveal reveal-delay-3 flex flex-wrap gap-2 mb-8">
+          {
+            ["TypeScript", "React", "Node.js", "Astro", "UI/UX"].map((tag) => (
+              <span
+                class="skill-tag"
+                style="color: var(--blue); border-color: rgba(0,180,255,0.28)"
+              >
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- CTAs -->
+        <div class="reveal reveal-delay-4 flex gap-4 flex-wrap">
+          <a href="#" class="btn-primary">
+            <span>Download CV</span>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
+              ></path>
+            </svg>
+          </a>
+          <a href="#contact" class="btn-outline">Let's Connect</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Stats Row ─────────────────────────────────── -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+      {
+        stats.map((stat, i) => (
+          <div class={`reveal reveal-delay-${i + 1} ui-card p-6 text-center`}>
+            <div
+              style="font-family:'Inter',sans-serif;font-weight:300;font-size:2.25rem;line-height:1;margin-bottom:0.25rem"
+              class="gradient-text"
+            >
+              {stat.value}
+            </div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">
+              {stat.label}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
