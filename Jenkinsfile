@@ -18,7 +18,7 @@ pipeline {
         COMPOSE_FILE = 'docker-compose.yml'
 
         // GitHub credentials ID stored in Jenkins Credentials
-        GIT_CREDENTIALS_ID = 'github-credentials'
+        GIT_CREDENTIALS_ID = 'github-token'
 
         // Docker registry credentials ID (optional — remove if not pushing)
         // DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
@@ -26,12 +26,6 @@ pipeline {
         // SSH deployment target (optional — for remote server deploy)
         // DEPLOY_HOST = 'user@your-server.com'
         // DEPLOY_DIR  = '/opt/profile-web-app'
-    }
-
-    // ─── Triggers ────────────────────────────────────────────────────────────
-    triggers {
-        // Poll GitHub every 5 minutes (use GitHub Webhook for real-time instead)
-        pollSCM('H/5 * * * *')
     }
 
     // ─── Pipeline Stages ─────────────────────────────────────────────────────
