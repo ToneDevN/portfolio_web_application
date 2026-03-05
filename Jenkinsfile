@@ -1,132 +1,148 @@
-// ─────────────────────────────────────────────────────────────────────────────
-//  Jenkinsfile  –  Profile Web Application
-//  Pipeline: Checkout → Install → Build → Docker Build → Push → Deploy
-// ─────────────────────────────────────────────────────────────────────────────
-
 pipeline {
     agent any
 
-    // ── Environment variables ──────────────────────────────────────────────────
-    environment {
-        // Docker Hub (or private registry) — set these in Jenkins Credentials
-        DOCKER_REGISTRY   = 'docker.io'          // e.g. 'your-registry.com'
-        DOCKER_IMAGE      = 'tonedev/profile-web' // <dockerhub-user>/<image-name>
-        DOCKER_CREDS_ID   = 'dockerhub-credentials' // Jenkins credential ID
-
-        // SSH deploy target — set in Jenkins Credentials (SSH Username with key)
-        DEPLOY_SSH_ID     = 'deploy-server-ssh'
-        DEPLOY_USER       = 'ubuntu'
-        DEPLOY_HOST       = '192.168.1.100'       // Your server IP / hostname
-        DEPLOY_PATH       = '/opt/profile-web-app' // Path on the server
-
-        // Image tag: short Git SHA + build number for traceability
-        IMAGE_TAG         = "${env.GIT_COMMIT?.take(7) ?: 'latest'}-${env.BUILD_NUMBER}"
-    }
-
-    // ── Pipeline options ────────────────────────────────────────────────────────
+    // ─── Global Options ──────────────────────────────────────────────────────
     options {
-        timestamps()
-        disableConcurrentBuilds()                  // prevent parallel deploys
         buildDiscarder(logRotator(numToKeepStr: '10'))
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 20, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        timestamps()
     }
 
-    // ── Triggers ────────────────────────────────────────────────────────────────
+    // ─── Environment Variables ───────────────────────────────────────────────
+    environment {
+        // Docker image name — change to your registry path if needed
+        // e.g. 'ghcr.io/yourhandle/profile-web-app' or 'yourdockerhubuser/profile-web-app'
+        IMAGE_NAME   = 'profile-web-app'
+        IMAGE_TAG    = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+        COMPOSE_FILE = 'docker-compose.yml'
+
+        // GitHub credentials ID stored in Jenkins Credentials
+        GIT_CREDENTIALS_ID = 'github-credentials'
+
+        // Docker registry credentials ID (optional — remove if not pushing)
+        // DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+
+        // SSH deployment target (optional — for remote server deploy)
+        // DEPLOY_HOST = 'user@your-server.com'
+        // DEPLOY_DIR  = '/opt/profile-web-app'
+    }
+
+    // ─── Triggers ────────────────────────────────────────────────────────────
     triggers {
-        // Poll SCM every 5 min, or use GitHub/GitLab webhook instead
+        // Poll GitHub every 5 minutes (use GitHub Webhook for real-time instead)
         pollSCM('H/5 * * * *')
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
+    // ─── Pipeline Stages ─────────────────────────────────────────────────────
     stages {
 
-        // ── 1. Checkout ─────────────────────────────────────────────────────────
+        // 1. Checkout ─────────────────────────────────────────────────────────
         stage('Checkout') {
             steps {
-                checkout scm
-                script {
-                    env.GIT_COMMIT_SHORT = sh(
-                        script: 'git rev-parse --short HEAD',
-                        returnStdout: true
-                    ).trim()
-                    env.GIT_BRANCH_NAME = sh(
-                        script: 'git rev-parse --abbrev-ref HEAD',
-                        returnStdout: true
-                    ).trim()
-                    echo "🔀 Branch : ${env.GIT_BRANCH_NAME}"
-                    echo "📝 Commit : ${env.GIT_COMMIT_SHORT}"
-                }
+                echo '📥 Cloning repository from GitHub...'
+                checkout([
+                    $class           : 'GitSCM',
+                    branches         : [[name: "*/${env.BRANCH_NAME ?: 'main'}"]],
+                    userRemoteConfigs: [[
+                        url          : 'https://github.com/YOUR_USERNAME/YOUR_REPO.git',
+                        credentialsId: "${GIT_CREDENTIALS_ID}"
+                    ]],
+                    extensions       : [
+                        [$class: 'CleanBeforeCheckout'],
+                        [$class: 'CloneOption', depth: 1, shallow: true]
+                    ]
+                ])
+                echo "✅ Checked out branch: ${env.BRANCH_NAME} @ ${env.GIT_COMMIT?.take(7)}"
             }
         }
 
-        // ── 2. Install Dependencies ──────────────────────────────────────────────
+        // 2. Install Dependencies ─────────────────────────────────────────────
         stage('Install') {
-            agent {
-                docker {
-                    image 'oven/bun:1'
-                    reuseNode true
-                    args '--user root'
-                }
-            }
             steps {
                 echo '📦 Installing dependencies with Bun...'
-                sh 'bun install --frozen-lockfile'
+                sh '''
+                    bun install --frozen-lockfile
+                '''
             }
         }
 
-        // ── 3. Build (Astro static site) ────────────────────────────────────────
-        stage('Build') {
-            agent {
-                docker {
-                    image 'oven/bun:1'
-                    reuseNode true
-                    args '--user root'
+        // 3. Code Quality ─────────────────────────────────────────────────────
+        stage('Lint & Type Check') {
+            parallel {
+                stage('TypeScript Check') {
+                    steps {
+                        echo '� Running TypeScript type check...'
+                        sh '''
+                            bun x tsc --noEmit --project tsconfig.json || true
+                        '''
+                    }
+                }
+                stage('Astro Check') {
+                    steps {
+                        echo '🔍 Running Astro check...'
+                        sh '''
+                            bun x astro check || true
+                        '''
+                    }
                 }
             }
+        }
+
+        // 4. Build ────────────────────────────────────────────────────────────
+        stage('Build') {
             steps {
                 echo '🔨 Building Astro static site...'
-                sh 'bun run build'
-            }
-            post {
-                success {
-                    // Archive the built artefacts so they're downloadable from Jenkins
-                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
-                    echo '✅ Build artefacts archived.'
-                }
+                sh '''
+                    bun run build
+                '''
+                echo '✅ Build complete — dist/ directory ready'
+                // Archive build artifacts
+                archiveArtifacts artifacts: 'dist/**/*', fingerprint: true, allowEmptyArchive: false
             }
         }
 
-        // ── 4. Docker Build & Push ───────────────────────────────────────────────
-        stage('Docker Build & Push') {
-            // Only run on main / master branch
-            when {
-                anyOf {
-                    branch 'main'
-                    branch 'master'
-                }
-            }
+        // 5. Docker Build ─────────────────────────────────────────────────────
+        stage('Docker Build') {
             steps {
-                script {
-                    def fullTag      = "${DOCKER_IMAGE}:${IMAGE_TAG}"
-                    def latestTag    = "${DOCKER_IMAGE}:latest"
-
-                    echo "🐳 Building Docker image: ${fullTag}"
-
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDS_ID) {
-                        def img = docker.build(fullTag, "--target runner .")
-
-                        echo "📤 Pushing ${fullTag} and ${latestTag}..."
-                        img.push()                      // push SHA-tagged image
-                        img.push('latest')              // also update :latest
-                    }
-
-                    // Store the full tag for the Deploy stage
-                    env.BUILT_IMAGE_TAG = fullTag
-                }
+                echo "🐳 Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}..."
+                sh """
+                    docker build \
+                        --target runner \
+                        --tag ${IMAGE_NAME}:${IMAGE_TAG} \
+                        --tag ${IMAGE_NAME}:latest \
+                        --label "git.commit=${env.GIT_COMMIT}" \
+                        --label "git.branch=${env.BRANCH_NAME}" \
+                        --label "build.number=${env.BUILD_NUMBER}" \
+                        .
+                """
+                echo "✅ Docker image built: ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
 
-        // ── 5. Deploy ────────────────────────────────────────────────────────────
+        // 6. Docker Push (optional — uncomment + configure registry) ──────────
+        // stage('Docker Push') {
+        //     when {
+        //         branch 'main'
+        //     }
+        //     steps {
+        //         echo '📤 Pushing Docker image to registry...'
+        //         withCredentials([usernamePassword(
+        //             credentialsId: "${DOCKER_CREDENTIALS_ID}",
+        //             usernameVariable: 'DOCKER_USER',
+        //             passwordVariable: 'DOCKER_PASS'
+        //         )]) {
+        //             sh """
+        //                 echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+        //                 docker push ${IMAGE_NAME}:${IMAGE_TAG}
+        //                 docker push ${IMAGE_NAME}:latest
+        //                 docker logout
+        //             """
+        //         }
+        //     }
+        // }
+
+        // 7. Deploy ───────────────────────────────────────────────────────────
         stage('Deploy') {
             when {
                 anyOf {
@@ -135,74 +151,76 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    def builtTag = env.BUILT_IMAGE_TAG ?: "${DOCKER_IMAGE}:latest"
+                echo '🚀 Deploying to production with Docker Compose...'
+                sh """
+                    docker compose -f ${COMPOSE_FILE} pull  || true
+                    docker compose -f ${COMPOSE_FILE} up -d --build --remove-orphans
+                    docker compose -f ${COMPOSE_FILE} ps
+                """
+                echo '✅ Deployment complete — app running on port 8000'
+            }
+        }
 
-                    echo "🚀 Deploying ${builtTag} to ${DEPLOY_HOST}..."
-
-                    sshagent(credentials: [DEPLOY_SSH_ID]) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} '
-                                set -e
-                                cd ${DEPLOY_PATH}
-
-                                echo "Pulling latest image: ${builtTag}"
-                                docker pull ${builtTag}
-
-                                echo "Updating docker-compose to use image tag ${builtTag}..."
-                                export DEPLOY_IMAGE=${builtTag}
-
-                                echo "Stopping old container..."
-                                docker compose down --remove-orphans
-
-                                echo "Starting new container..."
-                                docker compose up -d app --wait
-
-                                echo "Cleaning up dangling images..."
-                                docker image prune -f
-                            '
-                        """
-                    }
+        // 8. Health Check ─────────────────────────────────────────────────────
+        stage('Health Check') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'master'
                 }
+            }
+            steps {
+                echo '❤️  Waiting for container to be healthy...'
+                sh '''
+                    for i in $(seq 1 12); do
+                        STATUS=$(docker inspect --format="{{.State.Health.Status}}" profile-web-app 2>/dev/null || echo "not_found")
+                        echo "  Attempt $i/12 — health: $STATUS"
+                        if [ "$STATUS" = "healthy" ]; then
+                            echo "✅ Container is healthy!"
+                            exit 0
+                        fi
+                        sleep 5
+                    done
+                    echo "❌ Health check timed out"
+                    docker logs profile-web-app --tail 50
+                    exit 1
+                '''
             }
         }
 
     } // end stages
 
-    // ══════════════════════════════════════════════════════════════════════════
+    // ─── Post Actions ────────────────────────────────────────────────────────
     post {
-
+        always {
+            echo '🧹 Cleaning up dangling Docker images...'
+            sh 'docker image prune -f || true'
+        }
         success {
             echo """
-            ╔══════════════════════════════════════╗
-            ║  ✅  Pipeline SUCCEEDED               ║
-            ║  Branch  : ${env.GIT_BRANCH_NAME}
-            ║  Commit  : ${env.GIT_COMMIT_SHORT}
-            ║  Build # : ${env.BUILD_NUMBER}
-            ╚══════════════════════════════════════╝
+╔══════════════════════════════════════╗
+║  ✅  BUILD & DEPLOY SUCCEEDED        ║
+║  Branch : ${env.BRANCH_NAME}
+║  Build  : #${env.BUILD_NUMBER}
+║  Commit : ${env.GIT_COMMIT?.take(7)}
+╚══════════════════════════════════════╝
             """
         }
-
         failure {
             echo """
-            ╔══════════════════════════════════════╗
-            ║  ❌  Pipeline FAILED                  ║
-            ║  Branch  : ${env.GIT_BRANCH_NAME}
-            ║  Commit  : ${env.GIT_COMMIT_SHORT}
-            ║  Build # : ${env.BUILD_NUMBER}
-            ╚══════════════════════════════════════╝
+╔══════════════════════════════════════╗
+║  ❌  PIPELINE FAILED                 ║
+║  Branch : ${env.BRANCH_NAME}
+║  Build  : #${env.BUILD_NUMBER}
+╚══════════════════════════════════════╝
             """
-            // Uncomment to enable email notifications:
-            // emailext(
-            //     subject: "❌ Build #${env.BUILD_NUMBER} failed — ${env.JOB_NAME}",
-            //     body: "Check console output at ${env.BUILD_URL}",
-            //     to: 'you@example.com'
-            // )
+            // Optional: send Slack/email notification
+            // slackSend channel: '#deploys', color: 'danger',
+            //     message: "❌ Build #${BUILD_NUMBER} failed on ${BRANCH_NAME}"
         }
-
-        always {
-            // Clean workspace to free disk space after each run
+        cleanup {
             cleanWs()
         }
     }
+
 }
