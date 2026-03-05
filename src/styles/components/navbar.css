@@ -1,0 +1,108 @@
+/* ── Logo Image ──────────────────────── */
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 12px;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+    filter: drop-shadow(0 0 6px rgba(0, 180, 255, 0));
+}
+
+.group:hover .logo-img {
+    transform: scale(1.08) rotate(-3deg);
+    filter: drop-shadow(0 0 10px rgba(0, 180, 255, 0.5));
+}
+
+/* ── Scrolled State ─────────── */
+#navbar.scrolled {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#navbar.scrolled nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* ── Nav Link Active / Hover ── */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--pink));
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--text) !important;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 60%;
+}
+
+/* ── Mobile Link Hover ──────── */
+.mobile-nav-link:hover {
+    color: var(--text) !important;
+    background: var(--bg-2);
+}
+
+/* ── Hamburger Open State ───── */
+#mobile-menu-btn.open .menu-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+#mobile-menu-btn.open .menu-line:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+
+#mobile-menu-btn.open .menu-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ── Language Toggle Button ──── */
+.lang-toggle-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.lang-toggle-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.lang-toggle-btn:hover::before {
+    opacity: 0.12;
+}
+
+.lang-toggle-btn:hover {
+    border-color: var(--blue) !important;
+}
+
+.lang-label {
+    position: relative;
+    z-index: 1;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: color 0.25s ease;
+}

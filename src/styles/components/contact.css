@@ -1,0 +1,11 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-link:hover .contact-value {
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

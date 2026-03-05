@@ -1,0 +1,662 @@
+/* ── Background ─────────────────────────────────────── */
+.sk-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle,
+            var(--dot-color) 1px,
+            transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 80% 65% at 50% 50%,
+            black 25%,
+            transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 50%,
+            black 25%,
+            transparent 100%);
+}
+
+.sk-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sk-glow--a {
+    width: 540px;
+    height: 540px;
+    top: -160px;
+    left: -180px;
+    background: radial-gradient(circle,
+            rgba(0, 180, 255, 0.13) 0%,
+            transparent 70%);
+}
+
+.sk-glow--b {
+    width: 360px;
+    height: 360px;
+    bottom: -80px;
+    right: 4%;
+    background: radial-gradient(circle,
+            rgba(255, 26, 110, 0.11) 0%,
+            transparent 70%);
+}
+
+.sk-ghost {
+    position: absolute;
+    top: 48%;
+    right: -1%;
+    transform: translateY(-50%);
+    font-family: "Syne", sans-serif;
+    font-weight: 800;
+    font-size: clamp(5rem, 14vw, 11rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 180, 255, 0.055);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+html.light .sk-ghost {
+    -webkit-text-stroke-color: rgba(26, 79, 214, 0.045);
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.sk-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+    .sk-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+}
+
+/* ── Stats ──────────────────────────────────────────── */
+.sk-stats {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.sk-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0 1.25rem;
+    border-left: 1px solid var(--border);
+}
+
+.sk-stat:last-child {
+    padding-right: 0;
+}
+
+.sk-stat-val {
+    font-family: "Syne", sans-serif;
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.sk-stat-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .sk-stats {
+        width: 100%;
+    }
+
+    .sk-stat {
+        padding: 0 1rem;
+    }
+
+    .sk-stat:first-child {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+/* ── Container ──────────────────────────────────────── */
+.sk-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0 1.5rem 1.5rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+@media (max-width: 640px) {
+    .sk-container {
+        padding: 0 1rem 1rem;
+        border-radius: 14px;
+    }
+}
+
+/* ── Tabs ───────────────────────────────────────────── */
+.sk-tabs-wrap {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.sk-tabs {
+    display: flex;
+    position: relative;
+}
+
+.sk-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.72rem 1.1rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: color 0.2s ease;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: -1px;
+}
+
+.sk-tab:hover {
+    color: var(--text-2);
+}
+
+.sk-tab--blue.is-active {
+    color: var(--blue);
+}
+
+.sk-tab--pink.is-active {
+    color: var(--pink);
+}
+
+.sk-tab--mixed.is-active .sk-tab-text {
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sk-tab--mixed.is-active .sk-tab-icon {
+    color: var(--blue);
+}
+
+.sk-tab-icon {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.sk-tab.is-active .sk-tab-icon {
+    opacity: 1;
+}
+
+.sk-tab-count {
+    font-size: 0.6rem;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--bg-3);
+    color: var(--text-muted);
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+.sk-tab--blue.is-active .sk-tab-count {
+    background: rgba(0, 180, 255, 0.12);
+    color: var(--blue);
+}
+
+.sk-tab--pink.is-active .sk-tab-count {
+    background: rgba(255, 26, 110, 0.12);
+    color: var(--pink);
+}
+
+.sk-tab--mixed.is-active .sk-tab-count {
+    background: rgba(0, 180, 255, 0.1);
+    color: var(--blue);
+}
+
+/* Sliding underline indicator */
+.sk-indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    border-radius: 2px 2px 0 0;
+    background: var(--blue);
+    pointer-events: none;
+    z-index: 2;
+    transition:
+        transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        background 0.25s ease;
+}
+
+/* ── Panels ─────────────────────────────────────────── */
+.sk-panels {
+    min-height: 240px;
+}
+
+.sk-panel {
+    display: none;
+}
+
+.sk-panel.is-active {
+    display: block;
+}
+
+/* ── Skill Grid ─────────────────────────────────────── */
+.sk-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+@media (max-width: 900px) {
+    .sk-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 520px) {
+    .sk-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ── Skill Tile ─────────────────────────────────────── */
+.sk-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.35rem 0.75rem 1.1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition:
+        transform 0.24s ease,
+        border-color 0.24s ease,
+        box-shadow 0.24s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sk-tile-hint {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    text-transform: uppercase;
+}
+
+.sk-tile:hover .sk-tile-hint {
+    opacity: 0.7;
+    transform: translateY(0);
+}
+
+/* Entrance animation (JS-driven) */
+.sk-tile.sk-anim {
+    animation: tileIn 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation-delay: calc(var(--i, 0) * 0.045s);
+}
+
+@keyframes tileIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.sk-tile--blue:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 180, 255, 0.45);
+    box-shadow: 0 10px 32px rgba(0, 180, 255, 0.1);
+}
+
+.sk-tile--pink:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 26, 110, 0.45);
+    box-shadow: 0 10px 32px rgba(255, 26, 110, 0.1);
+}
+
+.sk-tile--mixed:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 180, 255, 0.4);
+    box-shadow: 0 10px 32px rgba(0, 180, 255, 0.08);
+}
+
+.sk-tile-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    opacity: 0.75;
+    filter: brightness(1.1);
+    transition:
+        opacity 0.2s,
+        transform 0.22s ease;
+}
+
+.sk-tile:hover .sk-tile-icon {
+    opacity: 1;
+    transform: scale(1.14);
+}
+
+.sk-tile-fallback {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    height: 28px;
+    display: flex;
+    align-items: center;
+    opacity: 0.55;
+}
+
+.sk-tile-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.67rem;
+    letter-spacing: 0.02em;
+    color: var(--text-2);
+    text-align: center;
+    line-height: 1.3;
+    transition: color 0.2s;
+}
+
+.sk-tile:hover .sk-tile-name {
+    color: var(--text);
+}
+
+/* ── Light Mode ─────────────────────────────────────── */
+html.light .sk-tile-icon {
+    filter: none;
+    opacity: 0.85;
+}
+
+html.light .sk-tile:hover .sk-tile-icon {
+    opacity: 1;
+}
+
+/* ════════════════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════════════════ */
+.skm-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Hidden by default */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.skm-backdrop.is-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.skm-panel {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skm-backdrop.is-open .skm-panel {
+    transform: translateY(0) scale(1);
+}
+
+/* Close button */
+.skm-close {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-3);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
+}
+
+.skm-close:hover {
+    background: var(--border);
+    color: var(--text);
+    transform: rotate(90deg);
+}
+
+/* Header */
+.skm-head {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.skm-logo-wrap {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+}
+
+.skm-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.skm-logo-fallback {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1rem;
+    color: var(--text-muted);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.skm-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid;
+    border-radius: 999px;
+    margin-bottom: 0.35rem;
+    display: inline-block;
+    opacity: 0.85;
+}
+
+.skm-name {
+    font-family: "Syne", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin: 0 0 0.2rem;
+}
+
+.skm-since {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+/* Level bar */
+.skm-level-wrap {
+    margin-bottom: 1.25rem;
+}
+
+.skm-level-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.skm-level-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.skm-level-value {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--text-2);
+    letter-spacing: 0.02em;
+}
+
+.skm-bar-track {
+    height: 5px;
+    border-radius: 999px;
+    background: var(--bg-3);
+    overflow: hidden;
+}
+
+.skm-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Description */
+.skm-desc {
+    font-family: "Inter", sans-serif;
+    font-size: 0.87rem;
+    line-height: 1.7;
+    color: var(--text-2);
+    margin: 0 0 1.25rem;
+}
+
+/* Tags */
+.skm-tags-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.skm-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.skm-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tag-color) 10%, transparent);
+    color: var(--tag-color);
+    border: 1px solid color-mix(in srgb, var(--tag-color) 25%, transparent);
+    transition: background 0.2s;
+}
+
+.skm-tag:hover {
+    background: color-mix(in srgb, var(--tag-color) 18%, transparent);
+}
+
+/* Light mode modal */
+html.light .skm-panel {
+    box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+}
+
+html.light .skm-backdrop {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 520px) {
+    .skm-panel {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .skm-name {
+        font-size: 1.25rem;
+    }
+}

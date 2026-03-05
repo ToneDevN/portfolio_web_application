@@ -1,0 +1,23 @@
+.footer-social {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+}
+
+.footer-social:hover {
+    color: var(--blue);
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 180, 255, 0.15);
+}
+
+.footer-nav-link:hover {
+    color: var(--text) !important;
+}

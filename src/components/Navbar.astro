@@ -1,38 +1,64 @@
 ---
-const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+import { navItems } from "../data/personal";
+import { en } from "../i18n/en";
+import { th } from "../i18n/th";
 ---
 
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+>
   <nav class="container mx-auto px-6 py-5 flex items-center justify-between">
-
     <!-- Logo -->
     <a href="#home" class="flex items-center gap-2 group" aria-label="Home">
-      <div class="relative w-9 h-9">
-        <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--blue)] to-[var(--pink)] opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <span class="relative z-10 flex items-center justify-center w-full h-full font-display font-bold text-white text-lg leading-none">T</span>
-      </div>
-      <span class="font-display font-bold text-lg tracking-tight" style="color: var(--text)">
-        tone<span class="gradient-text">dev</span>
+      <img
+        src="/Tonedev.svg"
+        alt="ToneDev Logo"
+        class="logo-img"
+        width="32"
+        height="32"
+      />
+      <span
+        class="font-display font-bold text-lg tracking-tight"
+        style="color: var(--text)"
+      >
+        Tone<span class="gradient-text">dev</span>
       </span>
     </a>
 
     <!-- Desktop Nav Links -->
     <ul class="hidden md:flex items-center gap-1 list-none">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={`#${item.toLowerCase().replace(' ', '-')}`}
-            class="nav-link relative px-4 py-2 font-body font-medium text-sm transition-colors duration-200"
-            style="color: var(--text-muted)"
-          >
-            {item}
-          </a>
-        </li>
-      ))}
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="nav-link relative px-4 py-2 font-body font-medium text-sm transition-colors duration-200"
+              style="color: var(--text-muted)"
+              data-i18n={item.key}
+            >
+              {item.en}
+            </a>
+          </li>
+        ))
+      }
     </ul>
 
-    <!-- Right: Theme Toggle + Hire Me + Mobile Btn -->
-    <div class="flex items-center gap-3">
+    <!-- Right: Controls -->
+    <div class="flex items-center gap-2">
+      <!-- Language Toggle -->
+      <button
+        id="lang-toggle"
+        aria-label="Switch to Thai"
+        class="lang-toggle-btn w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+        style="background: var(--bg-2); border: 1px solid var(--border)"
+      >
+        <span
+          class="lang-label font-mono text-xs font-bold"
+          style="color: var(--blue)">TH</span
+        >
+      </button>
+
       <!-- Theme Toggle -->
       <button
         id="theme-toggle"
@@ -41,21 +67,45 @@ const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
         style="background: var(--bg-2); border: 1px solid var(--border)"
       >
         <!-- Sun (shown in dark mode) -->
-        <svg id="icon-sun" class="w-5 h-5 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--blue)">
-          <circle cx="12" cy="12" r="5"/>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        <svg
+          id="icon-sun"
+          class="w-5 h-5 block"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          style="color: var(--blue)"
+        >
+          <circle cx="12" cy="12" r="5"></circle>
+          <path
+            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+          ></path>
         </svg>
         <!-- Moon (shown in light mode) -->
-        <svg id="icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--pink)">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        <svg
+          id="icon-moon"
+          class="w-5 h-5 hidden"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          style="color: var(--pink)"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
 
       <!-- Hire Me Button (desktop) -->
       <a href="#contact" class="btn-primary hidden md:inline-flex">
-        <span>Hire Me</span>
-        <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
+        <span data-i18n="nav.hireMe">Hire Me</span>
+        <svg
+          class="w-4 h-4 relative z-10"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </a>
 
@@ -65,9 +115,15 @@ const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
         aria-label="Open menu"
         class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
       >
-        <span class="menu-line block w-6 h-0.5 transition-all duration-300" style="background: var(--text)"></span>
-        <span class="menu-line block w-4 h-0.5 transition-all duration-300" style="background: var(--text)"></span>
-        <span class="menu-line block w-6 h-0.5 transition-all duration-300" style="background: var(--text)"></span>
+        <span
+          class="menu-line block w-6 h-0.5 transition-all duration-300"
+          style="background: var(--text)"></span>
+        <span
+          class="menu-line block w-4 h-0.5 transition-all duration-300"
+          style="background: var(--text)"></span>
+        <span
+          class="menu-line block w-6 h-0.5 transition-all duration-300"
+          style="background: var(--text)"></span>
       </button>
     </div>
   </nav>
@@ -79,124 +135,38 @@ const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
     style="max-height: 0; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border)"
   >
     <ul class="container mx-auto px-6 py-4 flex flex-col gap-1 list-none">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={`#${item.toLowerCase().replace(' ', '-')}`}
-            class="mobile-nav-link block py-3 px-4 rounded-lg font-body font-medium text-sm transition-all duration-200"
-            style="color: var(--text-muted)"
-          >
-            {item}
-          </a>
-        </li>
-      ))}
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="mobile-nav-link block py-3 px-4 rounded-lg font-body font-medium text-sm transition-all duration-200"
+              style="color: var(--text-muted)"
+              data-i18n={item.key}
+            >
+              {item.en}
+            </a>
+          </li>
+        ))
+      }
       <li class="pt-2">
         <a href="#contact" class="btn-primary w-full justify-center">
-          <span>Hire Me</span>
+          <span data-i18n="nav.hireMe">Hire Me</span>
         </a>
       </li>
     </ul>
   </div>
 </header>
 
+<!-- Inject all translations for client-side i18n -->
+<script id="i18n-en" type="application/json" set:html={JSON.stringify(en)} />
+<script id="i18n-th" type="application/json" set:html={JSON.stringify(th)} />
+
 <style>
-  /* ── Scrolled State ─────────── */
-  #navbar.scrolled {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  #navbar.scrolled nav {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  /* ── Nav Link Active / Hover ── */
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--pink));
-    border-radius: 2px;
-    transform: translateX(-50%);
-    transition: width 0.3s ease;
-  }
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--text) !important;
-  }
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    width: 60%;
-  }
-
-  /* ── Mobile Link Hover ──────── */
-  .mobile-nav-link:hover {
-    color: var(--text) !important;
-    background: var(--bg-2);
-  }
-
-  /* ── Hamburger Open State ───── */
-  #mobile-menu-btn.open .menu-line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  #mobile-menu-btn.open .menu-line:nth-child(2) {
-    opacity: 0;
-    width: 0;
-  }
-  #mobile-menu-btn.open .menu-line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
+  @import "../styles/components/navbar.css";
 </style>
 
 <script>
-  // ── Scroll: add glass to navbar ──────────────────────
-  const navbar = document.getElementById('navbar')!;
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  // ── Theme Toggle ─────────────────────────────────────
-  const themeBtn = document.getElementById('theme-toggle')!;
-  const iconSun  = document.getElementById('icon-sun')!;
-  const iconMoon = document.getElementById('icon-moon')!;
-
-  function updateIcons() {
-    const isLight = document.documentElement.classList.contains('light');
-    iconSun.classList.toggle('hidden', isLight);
-    iconSun.classList.toggle('block', !isLight);
-    iconMoon.classList.toggle('hidden', !isLight);
-    iconMoon.classList.toggle('block', isLight);
-  }
-
-  updateIcons();
-
-  themeBtn.addEventListener('click', () => {
-    const isLight = document.documentElement.classList.toggle('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    updateIcons();
-  });
-
-  // ── Mobile Menu ──────────────────────────────────────
-  const mobileBtn  = document.getElementById('mobile-menu-btn')!;
-  const mobileMenu = document.getElementById('mobile-menu')!;
-
-  mobileBtn.addEventListener('click', () => {
-    const isOpen = mobileBtn.classList.toggle('open');
-    mobileMenu.style.maxHeight = isOpen ? mobileMenu.scrollHeight + 'px' : '0';
-  });
-
-  // Close mobile menu on link click
-  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileBtn.classList.remove('open');
-      mobileMenu.style.maxHeight = '0';
-    });
-  });
+  import "../scripts/navbar.ts";
+  import "../scripts/i18n.ts";
 </script>

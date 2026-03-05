@@ -63,8 +63,15 @@
 }
 
 html.light .skill-tag {
-  background: rgba(0, 85, 204, 0.05);
-  border-color: rgba(0, 85, 204, 0.15);
+  background: rgba(26, 79, 214, 0.06);
+  border-color: rgba(26, 79, 214, 0.2);
+  color: var(--text-muted);
+}
+
+html.light .skill-tag:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(26, 79, 214, 0.1);
 }
 
 /* ─── Typing Cursor ──────────────────────────────────── */

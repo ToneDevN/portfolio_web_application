@@ -1,10 +1,5 @@
 ---
-const stats = [
-  { value: "3+", label: "Years Experience" },
-  { value: "50+", label: "Projects Completed" },
-  { value: "20+", label: "Happy Clients" },
-  { value: "10+", label: "Contributions" },
-];
+import { aboutStats, aboutTags } from "../data/personal";
 ---
 
 <section id="about" class="section-pad relative overflow-hidden">
@@ -93,7 +88,11 @@ const stats = [
             <div
               class="absolute top-4 left-4 glass rounded-lg px-3 py-1.5 z-20"
             >
-              <p class="font-mono text-xs" style="color: var(--blue)">
+              <p
+                class="font-mono text-xs"
+                style="color: var(--blue)"
+                data-i18n="about.available"
+              >
                 ⚡ Open to work
               </p>
             </div>
@@ -102,7 +101,11 @@ const stats = [
             >
               <span class="w-2 h-2 rounded-full" style="background: var(--blue)"
               ></span>
-              <p class="font-mono text-xs" style="color: var(--text)">
+              <p
+                class="font-mono text-xs"
+                style="color: var(--text)"
+                data-i18n="about.location"
+              >
                 Bangkok, TH 🇹🇭
               </p>
             </div>
@@ -124,16 +127,21 @@ const stats = [
 
       <!-- ── Right: Content ──────────────────────────── -->
       <div class="relative z-10">
-        <p class="section-subtitle reveal">About Me</p>
+        <p class="section-subtitle reveal" data-i18n="about.subtitle">
+          About Me
+        </p>
         <h2 class="section-title reveal reveal-delay-1 mb-6">
-          Crafting digital<br />
-          <span class="gradient-text">experiences</span> with<br />
-          purpose &amp; passion
+          <span data-i18n="about.title">Crafting digital</span><br />
+          <span class="gradient-text" data-i18n="about.titleHighlight"
+            >experiences</span
+          >
+          <span data-i18n="about.titleEnd"> with<br />purpose & passion</span>
         </h2>
 
         <div class="reveal reveal-delay-2 space-y-5 mb-8">
           <p
             style="font-size: 1.025rem; line-height: 1.8; color: var(--text-2)"
+            data-i18n="about.p1"
           >
             Hi! I'm <span style="color:var(--text);font-weight:600"
               >Nawamin Comjun</span
@@ -143,6 +151,7 @@ const stats = [
           </p>
           <p
             style="font-size: 1.025rem; line-height: 1.8; color: var(--text-2)"
+            data-i18n="about.p2"
           >
             When I'm not coding, you'll find me exploring new design trends,
             contributing to open source, or experimenting with creative tech. I
@@ -159,7 +168,7 @@ const stats = [
         <!-- Highlight Tags -->
         <div class="reveal reveal-delay-3 flex flex-wrap gap-2 mb-8">
           {
-            ["TypeScript", "React", "Node.js", "Astro", "UI/UX"].map((tag) => (
+            aboutTags.map((tag) => (
               <span
                 class="skill-tag"
                 style="color: var(--blue); border-color: rgba(0,180,255,0.28)"
@@ -173,7 +182,7 @@ const stats = [
         <!-- CTAs -->
         <div class="reveal reveal-delay-4 flex gap-4 flex-wrap">
           <a href="#" class="btn-primary">
-            <span>Download CV</span>
+            <span data-i18n="about.downloadCV">Download CV</span>
             <svg
               class="w-4 h-4"
               fill="none"
@@ -186,7 +195,9 @@ const stats = [
               ></path>
             </svg>
           </a>
-          <a href="#contact" class="btn-outline">Let's Connect</a>
+          <a href="#contact" class="btn-outline" data-i18n="about.letsConnect"
+            >Let's Connect</a
+          >
         </div>
       </div>
     </div>
@@ -194,7 +205,7 @@ const stats = [
     <!-- ── Stats Row ─────────────────────────────────── -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
       {
-        stats.map((stat, i) => (
+        aboutStats.map((stat, i) => (
           <div class={`reveal reveal-delay-${i + 1} ui-card p-6 text-center`}>
             <div
               style="font-family:'Inter',sans-serif;font-weight:300;font-size:2.25rem;line-height:1;margin-bottom:0.25rem"
@@ -202,8 +213,11 @@ const stats = [
             >
               {stat.value}
             </div>
-            <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">
-              {stat.label}
+            <div
+              style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)"
+              data-i18n={stat.labelKey}
+            >
+              {stat.labelKey.split(".").pop()}
             </div>
           </div>
         ))

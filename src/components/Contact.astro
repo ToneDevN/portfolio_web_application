@@ -1,30 +1,5 @@
 ---
-const contactInfo = [
-  {
-    label: 'Email',
-    value: 'hello@yourname.dev',
-    href: 'mailto:hello@yourname.dev',
-    icon: 'mail',
-  },
-  {
-    label: 'Location',
-    value: 'Bangkok, Thailand',
-    href: '#',
-    icon: 'map',
-  },
-  {
-    label: 'GitHub',
-    value: '@yourhandle',
-    href: 'https://github.com/yourhandle',
-    icon: 'github',
-  },
-  {
-    label: 'LinkedIn',
-    value: 'linkedin.com/in/yourname',
-    href: 'https://linkedin.com/in/yourname',
-    icon: 'linkedin',
-  },
-];
+import { contactInfo } from '../data/personal';
 ---
 
 <section id="contact" class="section-pad relative overflow-hidden">
@@ -40,11 +15,13 @@ const contactInfo = [
 
     <!-- ── Header ────────────────────────────────────── -->
     <div class="text-center mb-14">
-      <p class="section-subtitle reveal justify-center">Get In Touch</p>
+      <p class="section-subtitle reveal justify-center" data-i18n="contact.subtitle">Get In Touch</p>
       <h2 class="section-title reveal reveal-delay-1 mb-4">
-        Let's <span class="gradient-text">Connect</span>
+        <span data-i18n="contact.title">Let's</span> <span class="gradient-text" data-i18n="contact.titleHighlight">Connect</span>
       </h2>
-      <p class="reveal reveal-delay-2 max-w-lg mx-auto" style="font-size: 1.025rem; line-height: 1.75; color: var(--text-2)">
+      <p class="reveal reveal-delay-2 max-w-lg mx-auto"
+         style="font-size: 1.025rem; line-height: 1.75; color: var(--text-2)"
+         data-i18n="contact.description">
         Have a project in mind, or just want to say hi?
         My inbox is always open. I'll get back to you within 24 hours.
       </p>
@@ -93,7 +70,9 @@ const contactInfo = [
 
             <!-- Text -->
             <div>
-              <p class="font-mono text-xs uppercase tracking-wide mb-0.5" style="color: var(--text-muted)">{info.label}</p>
+              <p class="font-mono text-xs uppercase tracking-wide mb-0.5"
+                 style="color: var(--text-muted)"
+                 data-i18n={info.labelKey}>{info.labelKey.split('.').pop()}</p>
               <p class="text-sm font-medium contact-value" style="color: var(--text)">{info.value}</p>
             </div>
 
@@ -116,30 +95,50 @@ const contactInfo = [
           <!-- Row: Name + Email -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="form-group">
-              <label class="font-mono text-xs uppercase tracking-wide" for="name" style="color: var(--text-muted)">Name *</label>
-              <input type="text" id="name" name="name" placeholder="Your Name" class="input-field mt-1" required />
+              <label class="font-mono text-xs uppercase tracking-wide" for="name"
+                     style="color: var(--text-muted)"
+                     data-i18n="contact.form.name">Name *</label>
+              <input type="text" id="name" name="name"
+                     placeholder="Your Name"
+                     class="input-field mt-1" required
+                     data-i18n-placeholder="contact.form.namePlaceholder" />
             </div>
             <div class="form-group">
-              <label class="font-mono text-xs uppercase tracking-wide" for="email" style="color: var(--text-muted)">Email *</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" class="input-field mt-1" required />
+              <label class="font-mono text-xs uppercase tracking-wide" for="email"
+                     style="color: var(--text-muted)"
+                     data-i18n="contact.form.email">Email *</label>
+              <input type="email" id="email" name="email"
+                     placeholder="your@email.com"
+                     class="input-field mt-1" required
+                     data-i18n-placeholder="contact.form.emailPlaceholder" />
             </div>
           </div>
 
           <!-- Subject -->
           <div class="form-group">
-            <label class="font-mono text-xs uppercase tracking-wide" for="subject" style="color: var(--text-muted)">Subject</label>
-            <input type="text" id="subject" name="subject" placeholder="Project Collaboration" class="input-field mt-1" />
+            <label class="font-mono text-xs uppercase tracking-wide" for="subject"
+                   style="color: var(--text-muted)"
+                   data-i18n="contact.form.subject">Subject</label>
+            <input type="text" id="subject" name="subject"
+                   placeholder="Project Collaboration"
+                   class="input-field mt-1"
+                   data-i18n-placeholder="contact.form.subjectPlaceholder" />
           </div>
 
           <!-- Message -->
           <div class="form-group">
-            <label class="font-mono text-xs uppercase tracking-wide" for="message" style="color: var(--text-muted)">Message *</label>
-            <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" class="input-field mt-1 resize-none" required></textarea>
+            <label class="font-mono text-xs uppercase tracking-wide" for="message"
+                   style="color: var(--text-muted)"
+                   data-i18n="contact.form.message">Message *</label>
+            <textarea id="message" name="message"
+                      placeholder="Tell me about your project..."
+                      rows="5" class="input-field mt-1 resize-none" required
+                      data-i18n-placeholder="contact.form.messagePlaceholder"></textarea>
           </div>
 
           <!-- Submit -->
           <button type="submit" id="submit-btn" class="btn-primary w-full justify-center">
-            <span id="btn-text">Send Message</span>
+            <span id="btn-text" data-i18n="contact.form.send">Send Message</span>
             <svg id="btn-icon" class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
             </svg>
@@ -154,33 +153,9 @@ const contactInfo = [
 </section>
 
 <style>
-  .form-group { display: flex; flex-direction: column; }
-
-  .contact-link:hover .contact-value {
-    background: linear-gradient(135deg, var(--blue), var(--pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  @import '../styles/components/contact.css';
 </style>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const btnText = document.getElementById('btn-text')!;
-  const status = document.getElementById('form-status')!;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btnText.textContent = 'Sending...';
-    await new Promise((r) => setTimeout(r, 1500));
-    btnText.textContent = '✓ Message Sent!';
-    status.textContent = "Thanks! I'll reply within 24 hours.";
-    status.style.color = 'var(--blue)';
-    status.classList.remove('hidden');
-    form.reset();
-    setTimeout(() => {
-      btnText.textContent = 'Send Message';
-      status.classList.add('hidden');
-    }, 5000);
-  });
+  import '../scripts/contact.ts';
 </script>

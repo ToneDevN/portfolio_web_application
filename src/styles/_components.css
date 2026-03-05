@@ -7,11 +7,13 @@
   -webkit-backdrop-filter: blur(14px);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
+
 .ui-card:hover {
   border-color: rgba(0, 180, 255, 0.4);
   box-shadow: 0 0 0 1px rgba(0, 180, 255, 0.1), 0 16px 48px rgba(0, 0, 0, 0.35);
   background: var(--card-bg);
 }
+
 html.light .ui-card:hover {
   border-color: rgba(0, 85, 204, 0.4);
   box-shadow: 0 0 0 1px rgba(0, 85, 204, 0.1), 0 16px 48px rgba(0, 0, 0, 0.12);
@@ -31,6 +33,7 @@ html.light .ui-card:hover {
   z-index: 0;
   letter-spacing: -0.04em;
 }
+
 html.light .section-num {
   -webkit-text-stroke: 1.5px rgba(0, 85, 204, 0.06);
 }
@@ -69,6 +72,7 @@ html.light .section-num {
   position: relative;
   overflow: hidden;
 }
+
 .btn-primary::before {
   content: '';
   position: absolute;
@@ -77,9 +81,25 @@ html.light .section-num {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.btn-primary:hover::before { opacity: 1; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0, 180, 255, 0.3); }
-.btn-primary span, .btn-primary svg { position: relative; z-index: 1; }
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 180, 255, 0.3);
+}
+
+html.light .btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(26, 79, 214, 0.28);
+}
+
+.btn-primary span,
+.btn-primary svg {
+  position: relative;
+  z-index: 1;
+}
 
 .btn-outline {
   display: inline-flex;
@@ -92,16 +112,29 @@ html.light .section-num {
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
 }
+
 .btn-outline:hover {
   border-color: var(--pink);
   color: var(--pink);
   box-shadow: 0 0 20px rgba(255, 26, 110, 0.18);
   transform: translateY(-2px);
+}
+
+html.light .btn-outline {
+  border-color: rgba(26, 79, 214, 0.35);
+  color: var(--text-2);
+}
+
+html.light .btn-outline:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+  background: rgba(181, 0, 74, 0.05);
+  box-shadow: 0 0 22px rgba(181, 0, 74, 0.15);
 }
 
 /* ─── Aurora Orbs ───────────────────────────────────── */
@@ -112,8 +145,14 @@ html.light .section-num {
   pointer-events: none;
   z-index: 0;
 }
-.aurora-blue { background: radial-gradient(circle, rgba(0, 180, 255, 0.32) 0%, transparent 70%); }
-.aurora-pink { background: radial-gradient(circle, rgba(255, 26, 110, 0.28) 0%, transparent 70%); }
+
+.aurora-blue {
+  background: radial-gradient(circle, rgba(0, 180, 255, 0.32) 0%, transparent 70%);
+}
+
+.aurora-pink {
+  background: radial-gradient(circle, rgba(255, 26, 110, 0.28) 0%, transparent 70%);
+}
 
 /* ─── Input Fields ──────────────────────────────────── */
 .input-field {
@@ -128,16 +167,25 @@ html.light .section-num {
   outline: none;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+
 .input-field:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.1);
 }
-.input-field::placeholder { color: var(--text-muted); }
+
+html.light .input-field:focus {
+  box-shadow: 0 0 0 3px rgba(26, 79, 214, 0.12);
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
 
 /* ─── Noise Overlay ─────────────────────────────────── */
 .noise::after {
   content: '';
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   opacity: 0.35;
   pointer-events: none;
