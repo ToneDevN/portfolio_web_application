@@ -200,7 +200,7 @@ pipeline {
 ╚══════════════════════════════════════╝
             """
             slackSend(
-                channel: '#deploys', 
+                channel: '#workspace-management', 
                 color: 'good', 
                 message: "✅ *SUCCESS:* Build #${env.BUILD_NUMBER} of `${env.IMAGE_NAME}`\n*Branch:* ${env.BRANCH_NAME}\n*Commit:* ${env.GIT_COMMIT?.take(7)}\n*Check details:* <${env.BUILD_URL}|View Build in Jenkins>"
             )
@@ -214,7 +214,7 @@ pipeline {
 ╚══════════════════════════════════════╝
             """
             slackSend(
-                channel: '#deploys', 
+                channel: '#workspace-management', 
                 color: 'danger', 
                 message: "🚨 *FAILED:* Build #${env.BUILD_NUMBER} of `${env.IMAGE_NAME}`\n*Branch:* ${env.BRANCH_NAME}\n*Please check logs:* <${env.BUILD_URL}|View Console Output>"
             )
