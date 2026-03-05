@@ -199,6 +199,11 @@ pipeline {
 ║  Commit : ${env.GIT_COMMIT?.take(7)}
 ╚══════════════════════════════════════╝
             """
+            slackSend(
+                channel: '#deploys', 
+                color: 'good', 
+                message: "✅ *SUCCESS:* Build #${env.BUILD_NUMBER} of `${env.IMAGE_NAME}`\n*Branch:* ${env.BRANCH_NAME}\n*Commit:* ${env.GIT_COMMIT?.take(7)}\n*Check details:* <${env.BUILD_URL}|View Build in Jenkins>"
+            )
         }
         failure {
             echo """
@@ -208,6 +213,11 @@ pipeline {
 ║  Build  : #${env.BUILD_NUMBER}
 ╚══════════════════════════════════════╝
             """
+            slackSend(
+                channel: '#deploys', 
+                color: 'danger', 
+                message: "🚨 *FAILED:* Build #${env.BUILD_NUMBER} of `${env.IMAGE_NAME}`\n*Branch:* ${env.BRANCH_NAME}\n*Please check logs:* <${env.BUILD_URL}|View Console Output>"
+            )
             // Optional: send Slack/email notification
             // slackSend channel: '#deploys', color: 'danger',
             //     message: "❌ Build #${BUILD_NUMBER} failed on ${BRANCH_NAME}"
