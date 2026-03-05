@@ -45,7 +45,7 @@ pipeline {
                     $class           : 'GitSCM',
                     branches         : [[name: "*/${env.BRANCH_NAME ?: 'main'}"]],
                     userRemoteConfigs: [[
-                        url          : 'https://github.com/YOUR_USERNAME/YOUR_REPO.git',
+                        url          : 'https://github.com/ToneDevN/portfolio_web_application.git',
                         credentialsId: "${GIT_CREDENTIALS_ID}"
                     ]],
                     extensions       : [
