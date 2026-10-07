@@ -1,125 +1,135 @@
 ---
-import { personal } from '../data/personal';
-import { projects } from '../data/projects';
-import { en } from '../i18n/en';
-import { th } from '../i18n/th';
+import { personal } from "../data/personal";
+import { projects } from "../data/projects";
+import { en } from "../i18n/en";
+import { th } from "../i18n/th";
 
 export interface Props {
   siteUrl?: string;
 }
 
-const { siteUrl = Astro.site?.toString() || 'https://tonedev.dev' } = Astro.props;
+const { siteUrl = Astro.site?.toString() || "https://tonedev.org" } =
+  Astro.props;
 
-const cleanHtml = (text: string) => text.replace(/<[^>]*>/g, '').trim();
+const cleanHtml = (text: string) => text.replace(/<[^>]*>/g, "").trim();
 
 const schema = {
-  '@context': 'https://schema.org',
-  '@graph': [
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      '@type': 'Person',
-      '@id': `${siteUrl}/#person`,
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
       name: personal.name,
-      alternateName: [personal.handle, th['hero.name']],
+      alternateName: [personal.handle, th["hero.name"]],
       jobTitle: [
-        { '@value': 'Performance Engineer & Full-Stack Developer', '@language': 'en' },
-        { '@value': 'วิศวกรประสิทธิภาพและนักพัฒนาฟูลสแตก', '@language': 'th' }
+        {
+          "@value": "Performance Engineer & Full-Stack Developer",
+          "@language": "en",
+        },
+        { "@value": "วิศวกรประสิทธิภาพและนักพัฒนาฟูลสแตก", "@language": "th" },
       ],
       description: [
-        { '@value': cleanHtml(en['hero.description']), '@language': 'en' },
-        { '@value': cleanHtml(th['hero.description']), '@language': 'th' }
+        { "@value": cleanHtml(en["hero.description"]), "@language": "en" },
+        { "@value": cleanHtml(th["hero.description"]), "@language": "th" },
       ],
       email: `mailto:${personal.email}`,
       address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Bangkok',
-        addressCountry: 'TH'
+        "@type": "PostalAddress",
+        addressLocality: "Nakhonphanom",
+        addressCountry: "TH",
       },
       knowsLanguage: [
-        { '@type': 'Language', name: 'English', alternateName: 'en' },
-        { '@type': 'Language', name: 'Thai', alternateName: 'th' }
+        { "@type": "Language", name: "English", alternateName: "en" },
+        { "@type": "Language", name: "Thai", alternateName: "th" },
       ],
       sameAs: [
-        'https://github.com/ToneDevN',
-        'https://www.linkedin.com/in/nawamin-comjun-223355226'
+        "https://github.com/ToneDevN",
+        "https://www.linkedin.com/in/nawamin-comjun-223355226",
       ],
       knowsAbout: [
-        'TypeScript',
-        'Go',
-        'Rust',
-        'C',
-        'Performance Engineering',
-        'Data Structures & Algorithms',
-        'GraphRAG',
-        'Neo4j',
-        'PostgreSQL',
-        'Prisma ORM',
-        'Next.js',
-        'Astro',
-        'Docker',
-        'Systems Programming',
-        'Memory Management',
-        'Cache Optimization'
-      ]
+        "TypeScript",
+        "Go",
+        "Rust",
+        "C",
+        "Performance Engineering",
+        "Data Structures & Algorithms",
+        "GraphRAG",
+        "Neo4j",
+        "PostgreSQL",
+        "Prisma ORM",
+        "Next.js",
+        "Astro",
+        "Docker",
+        "Systems Programming",
+        "Memory Management",
+        "Cache Optimization",
+      ],
     },
     {
-      '@type': 'WebSite',
-      '@id': `${siteUrl}/#website`,
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: `${personal.name} (${personal.handle}) — Portfolio`,
-      inLanguage: ['en', 'th'],
+      inLanguage: ["en", "th"],
       author: {
-        '@id': `${siteUrl}/#person`
-      }
+        "@id": `${siteUrl}/#person`,
+      },
     },
     {
-      '@type': 'ProfilePage',
-      '@id': `${siteUrl}/#webpage`,
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/#webpage`,
       url: siteUrl,
       name: [
-        { '@value': `${personal.name} — Engineering High-Performance Systems`, '@language': 'en' },
-        { '@value': `${th['hero.name']} — วิศวกรประสิทธิภาพและระบบ`, '@language': 'th' }
+        {
+          "@value": `${personal.name} — Engineering High-Performance Systems`,
+          "@language": "en",
+        },
+        {
+          "@value": `${th["hero.name"]} — วิศวกรประสิทธิภาพและระบบ`,
+          "@language": "th",
+        },
       ],
-      inLanguage: ['en', 'th'],
+      inLanguage: ["en", "th"],
       mainEntity: {
-        '@id': `${siteUrl}/#person`
-      }
+        "@id": `${siteUrl}/#person`,
+      },
     },
     {
-      '@type': 'ItemList',
+      "@type": "ItemList",
       name: [
-        { '@value': 'Featured Portfolio Projects', '@language': 'en' },
-        { '@value': 'ผลงานโปรเจกต์ที่น่าสนใจ', '@language': 'th' }
+        { "@value": "Featured Portfolio Projects", "@language": "en" },
+        { "@value": "ผลงานโปรเจกต์ที่น่าสนใจ", "@language": "th" },
       ],
       itemListElement: projects.map((project, index) => {
         const enTitle = en[project.titleKey as keyof typeof en] || project.id;
         const thTitle = th[project.titleKey as keyof typeof th] || enTitle;
-        const enDesc = en[project.descKey as keyof typeof en] || '';
+        const enDesc = en[project.descKey as keyof typeof en] || "";
         const thDesc = th[project.descKey as keyof typeof th] || enDesc;
 
         return {
-          '@type': 'ListItem',
+          "@type": "ListItem",
           position: index + 1,
           item: {
-            '@type': 'SoftwareApplication',
+            "@type": "SoftwareApplication",
             name: [
-              { '@value': enTitle, '@language': 'en' },
-              { '@value': thTitle, '@language': 'th' }
+              { "@value": enTitle, "@language": "en" },
+              { "@value": thTitle, "@language": "th" },
             ],
             description: [
-              { '@value': enDesc, '@language': 'en' },
-              { '@value': thDesc, '@language': 'th' }
+              { "@value": enDesc, "@language": "en" },
+              { "@value": thDesc, "@language": "th" },
             ],
-            applicationCategory: 'DeveloperApplication',
-            operatingSystem: 'Web',
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Web",
             keywords: project.tags,
             author: {
-              '@id': `${siteUrl}/#person`
-            }
-          }
+              "@id": `${siteUrl}/#person`,
+            },
+          },
         };
-      })
-    }
-  ]
+      }),
+    },
+  ],
 };
 ---
 

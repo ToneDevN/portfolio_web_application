@@ -1,39 +1,33 @@
-/* ─── Design Tokens (CSS Custom Properties) ─────────── */
+/* ─── Design Tokens (Executive Cyan & Indigo Palette) ─────────── */
 
 :root {
-  --bg: #07070e;
-  --bg-2: #0e0e1c;
-  --bg-3: #16162a;
-  --text: #f0f0ff;
-  /* slightly warmer white — less glare */
-  --text-2: #c8c8e8;
-  /* secondary text: dimmed but clear */
-  --text-muted: #9090b4;
-  /* muted: higher contrast than old #7070a0 */
-  --blue: #00b4ff;
-  --pink: #ff1a6e;
-  --border: rgba(0, 180, 255, 0.12);
-  --glass: rgba(10, 10, 22, 0.7);
-  --card-bg: rgba(14, 14, 28, 0.65);
-  --dot-color: rgba(0, 180, 255, 0.07);
+  --bg: #070913;
+  --bg-2: #0e1122;
+  --bg-3: #161a30;
+  --text: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-muted: #94a3b8;
+  --blue: #00d2ff;
+  --pink: #6366f1; /* Executive Indigo accent */
+  --indigo: #6366f1;
+  --border: rgba(0, 210, 255, 0.14);
+  --glass: rgba(10, 14, 28, 0.75);
+  --card-bg: rgba(14, 18, 34, 0.70);
+  --dot-color: rgba(0, 210, 255, 0.06);
 }
 
 html.light {
-  --bg: #f2f4ff;
-  --bg-2: #e8ecff;
+  --bg: #f8fafc;
+  --bg-2: #f1f5f9;
   --bg-3: #ffffff;
-  --text: #050514;
-  /* near-black for crisp readability */
-  --text-2: #1e1e3a;
-  /* rich dark navy for secondary text */
-  --text-muted: #3d3d6b;
-  /* clear muted — passes AA contrast */
-  --blue: #1a4fd6;
-  /* richer, more saturated blue */
-  --pink: #b5004a;
-  /* deeper rose — good contrast on light bg */
-  --border: rgba(26, 79, 214, 0.18);
-  --glass: rgba(240, 242, 255, 0.92);
-  --card-bg: rgba(255, 255, 255, 0.80);
-  --dot-color: rgba(26, 79, 214, 0.06);
+  --text: #0f172a;
+  --text-2: #334155;
+  --text-muted: #64748b;
+  --blue: #0284c7;
+  --pink: #4f46e5; /* Deep Indigo accent */
+  --indigo: #4f46e5;
+  --border: rgba(2, 132, 199, 0.16);
+  --glass: rgba(248, 250, 252, 0.94);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --dot-color: rgba(2, 132, 199, 0.05);
 }

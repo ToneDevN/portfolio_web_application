@@ -22,7 +22,7 @@ html.light .ui-card:hover {
 /* ─── Ghost Section Number ──────────────────────────── */
 .section-num {
   position: absolute;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
   font-weight: 800;
   font-size: clamp(120px, 18vw, 220px);
   line-height: 1;
@@ -61,7 +61,7 @@ html.light .section-num {
   padding: 0.75rem 1.75rem;
   background: linear-gradient(135deg, var(--blue), var(--pink));
   color: white;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 8px;
@@ -108,7 +108,7 @@ html.light .btn-primary:hover {
   padding: 0.75rem 1.75rem;
   background: transparent;
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 8px;

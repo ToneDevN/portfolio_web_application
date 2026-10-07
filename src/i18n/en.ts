@@ -11,9 +11,9 @@ export const en = {
     // ── Hero ─────────────────────────────────────────────────────
     'hero.available': 'Available for work',
     'hero.greeting': "Hey, I'm",
-    'hero.name': 'Nawamin Khamchan',
+    'hero.name': 'Nawamin Comjun',
     'hero.description':
-        '<strong>Engineering High-Performance Systems with Algorithmic Precision.</strong> CS student focused on data structures, performance optimization, and building systems that are low-latency, durable, and resource-efficient.',
+        '<strong>Engineering High-Performance Systems with Algorithmic Precision.</strong> IT student focused on data structures, performance optimization, and building systems that are low-latency, durable, and resource-efficient.',
     'hero.cta.work': 'View My Work',
     'hero.cta.talk': "Let's Talk",
     'hero.findMe': 'Find me →',
@@ -26,11 +26,11 @@ export const en = {
     'about.titleHighlight': 'High-Performance',
     'about.titleEnd': 'Systems',
     'about.p1':
-        "I'm <strong>Nawamin Khamchan</strong>, a Computer Science student who sees Data Structures & Algorithms not as interview prep, but as a <strong>toolbox for solving real problems at the right complexity</strong>. I focus on understanding software deeply: choosing the right data structure, measuring what's actually slow, and building systems that are low-latency, durable, and resource-efficient.",
+        "I'm <strong>Nawamin Comjun</strong>, a Computer Science student who sees Data Structures & Algorithms not as interview prep, but as a <strong>toolbox for solving real problems at the right complexity</strong>. I focus on understanding software deeply: choosing the right data structure, measuring what's actually slow, and building systems that are low-latency, durable, and resource-efficient.",
     'about.p2':
         "My work spans <strong>Performance Engineering</strong> (profile-driven optimization, benchmarking every change), <strong>Algorithmic Mastery</strong> (DSA foundations), and <strong>Systemic Learning</strong> (turning raw information into actionable knowledge). I build full-stack products for freelance clients and conduct research in adaptive learning systems.",
     'about.available': '⚡ Open to work',
-    'about.location': 'Bangkok, TH 🇹🇭',
+    'about.location': 'Nakhonphanom, TH 🇹🇭',
     'about.downloadCV': 'Download CV',
     'about.letsConnect': "Let's Connect",
     'about.stat.years': 'Years Experience',
@@ -209,7 +209,7 @@ export const en = {
     'footer.tagline': 'Engineering High-Performance Systems with Algorithmic Precision — where data structures meet real-world optimization.',
     'footer.navigation': 'Navigation',
     'footer.connect': "Let's Connect",
-    'footer.rights': '© {year} Nawamin Khamchan. All rights reserved.',
+    'footer.rights': '© {year} Nawamin Comjun. All rights reserved.',
     'footer.madeWith': 'Made with ♥ using Astro',
     'footer.backToTop': 'Back to top',
 };

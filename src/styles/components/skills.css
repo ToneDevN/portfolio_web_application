@@ -50,7 +50,7 @@
     top: 48%;
     right: -1%;
     transform: translateY(-50%);
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-weight: 800;
     font-size: clamp(5rem, 14vw, 11rem);
     letter-spacing: -0.04em;
@@ -106,7 +106,7 @@ html.light .sk-ghost {
 }
 
 .sk-stat-val {
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-size: clamp(1.4rem, 2.4vw, 1.9rem);
     font-weight: 700;
     line-height: 1;
@@ -556,7 +556,7 @@ html.light .sk-ghost {
 }
 
 .skm-name {
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text);

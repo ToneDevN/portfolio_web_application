@@ -1,8 +1,8 @@
 export const personal = {
-    name: 'Nawamin Khamchan',
+    name: 'Nawamin Comjun',
     handle: 'ToneDev',
     email: 'tontaladtop@gmail.com',
-    location: 'Bangkok, Thailand',
+    location: 'Nakhonphanom, Thailand',
     locationEmoji: '🇹🇭',
     available: true,
 };
@@ -23,7 +23,7 @@ export const socials = [
 
 export const contactInfo = [
     { labelKey: 'contact.info.email', value: 'tontaladtop@gmail.com', href: 'mailto:tontaladtop@gmail.com', icon: 'mail' },
-    { labelKey: 'contact.info.location', value: 'Bangkok, Thailand', href: '#', icon: 'map' },
+    { labelKey: 'contact.info.location', value: 'Nakhonphanom, Thailand', href: '#', icon: 'map' },
     { labelKey: 'contact.info.github', value: '@ToneDevN', href: 'https://github.com/ToneDevN', icon: 'github' },
     { labelKey: 'contact.info.linkedin', value: 'linkedin.com/in/nawamin', href: 'https://www.linkedin.com/in/nawamin-comjun-223355226', icon: 'linkedin' },
 ];

@@ -260,7 +260,7 @@
 }
 
 .prm-title {
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-size: 1.35rem;
     font-weight: 700;
     color: var(--text);
