@@ -93,26 +93,18 @@ function getLang(): Lang {
 
 function getTranslation(key: string): string {
     const lang = getLang();
-    // Try requested language first
     const langEl = document.getElementById(`i18n-${lang}`);
     const enEl = document.getElementById('i18n-en');
     try {
         const langDict: Record<string, string> = JSON.parse(langEl?.textContent ?? '{}');
         const enDict: Record<string, string> = JSON.parse(enEl?.textContent ?? '{}');
         const langVal = langDict[key];
-        // Fallback to English when Thai value is missing or empty
         if (langVal !== undefined && langVal !== '') return langVal;
         return enDict[key] ?? key;
     } catch {
         return key;
     }
 }
-
-
-const levelLabels: Record<Lang, [string, string, string, string]> = {
-    en: ['Expert', 'Advanced', 'Intermediate', 'Learning'],
-    th: ['เชี่ยวชาญ', 'ขั้นสูง', 'ปานกลาง', 'กำลังเรียน'],
-};
 
 interface SkillData {
     name: string;
@@ -136,8 +128,6 @@ const skmLogoFb = document.getElementById("skmLogoFallback") as HTMLElement;
 const skmMeta = document.getElementById("skmMeta") as HTMLElement;
 const skmName = document.getElementById("skmName") as HTMLElement;
 const skmSince = document.getElementById("skmSince") as HTMLElement;
-const skmLevel = document.getElementById("skmLevelValue") as HTMLElement;
-const skmBar = document.getElementById("skmBarFill") as HTMLElement;
 const skmDesc = document.getElementById("skmDesc") as HTMLElement;
 const skmTags = document.getElementById("skmTags") as HTMLElement;
 
@@ -145,14 +135,6 @@ const accentColors: Record<string, string> = {
     blue: "var(--blue)",
     pink: "var(--pink)",
     mixed: "var(--blue)",
-};
-
-const levelLabel = (n: number): string => {
-    const labels = levelLabels[getLang()] ?? levelLabels.en;
-    if (n >= 90) return labels[0];
-    if (n >= 75) return labels[1];
-    if (n >= 60) return labels[2];
-    return labels[3];
 };
 
 function openModal(skillName: string) {
@@ -184,13 +166,6 @@ function openModal(skillName: string) {
     const usedSince = getTranslation('skills.modal.usedSince') || 'Used since';
     skmSince.textContent = `${usedSince} ${skill.since}`;
 
-    skmLevel.textContent = `${skill.level}% — ${levelLabel(skill.level)}`;
-    skmBar.style.width = "0%";
-    skmBar.style.background =
-        skill.accent === "mixed"
-            ? "linear-gradient(90deg, var(--blue), var(--pink))"
-            : color;
-
     const descText = getTranslation(skill.descKey) || skill.descKey;
     skmDesc.textContent = descText;
 
@@ -205,12 +180,6 @@ function openModal(skillName: string) {
 
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            skmBar.style.width = `${skill.level}%`;
-        });
-    });
 }
 
 function closeModal() {
@@ -221,6 +190,14 @@ function closeModal() {
 document
     .querySelectorAll<HTMLButtonElement>(".sk-tile[data-skill]")
     .forEach((tile) => {
+        tile.addEventListener("mousemove", (e) => {
+            const rect = tile.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            tile.style.setProperty("--mouse-x", `${x}px`);
+            tile.style.setProperty("--mouse-y", `${y}px`);
+        });
+
         tile.addEventListener("click", () => {
             const name = tile.dataset.skill ?? "";
             openModal(name);

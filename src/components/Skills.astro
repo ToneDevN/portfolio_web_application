@@ -18,17 +18,13 @@ const allSkillsData = skillGroups.flatMap((g) =>
 ---
 
 <section id="skills" class="section-pad relative overflow-hidden">
-  <!-- Dot grid texture -->
+  <!-- Ambient glows & grid texture -->
   <div class="sk-dots" aria-hidden="true"></div>
-
-  <!-- Ambient glows -->
   <div class="sk-glow sk-glow--a" aria-hidden="true"></div>
   <div class="sk-glow sk-glow--b" aria-hidden="true"></div>
 
-  <!-- Ghost watermark -->
+  <!-- Ghost watermark & section number -->
   <span class="sk-ghost" aria-hidden="true">SKILLS</span>
-
-  <!-- Section number -->
   <span
     class="section-num"
     style="top:50%;left:-1.5%;transform:translateY(-50%);">02</span
@@ -63,7 +59,7 @@ const allSkillsData = skillGroups.flatMap((g) =>
       </div>
     </div>
 
-    <!-- ── Tabbed Container ──────────────────────────── -->
+    <!-- ── Bento Glass Container ──────────────────────── -->
     <div class="sk-container reveal reveal-delay-1">
       <div class="sk-tabs-wrap">
         <div class="sk-tabs" role="tablist">
@@ -97,7 +93,7 @@ const allSkillsData = skillGroups.flatMap((g) =>
               data-panel={gi}
               role="tabpanel"
             >
-              <div class="sk-grid">
+              <div class="sk-grid-8col">
                 {g.skills.map((skill, si) => (
                   <button
                     class={`sk-tile sk-tile--${g.accent}`}
@@ -106,25 +102,28 @@ const allSkillsData = skillGroups.flatMap((g) =>
                     type="button"
                     aria-label={`View details for ${skill.name}`}
                   >
-                    {skill.slug ? (
-                      <img
-                        src={`https://cdn.simpleicons.org/${skill.slug}/ffffff`}
-                        data-src-dark={`https://cdn.simpleicons.org/${skill.slug}/ffffff`}
-                        data-src-light={`https://cdn.simpleicons.org/${skill.slug}`}
-                        class="sk-tile-icon"
-                        width="28"
-                        height="28"
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      <span class="sk-tile-fallback">{"</>"}</span>
-                    )}
+                    <!-- Spotlight overlay -->
+                    <div class="sk-tile-spotlight" aria-hidden="true"></div>
+
+                    <div class="sk-tile-icon-box">
+                      {skill.slug ? (
+                        <img
+                          src={`https://cdn.simpleicons.org/${skill.slug}/ffffff`}
+                          data-src-dark={`https://cdn.simpleicons.org/${skill.slug}/ffffff`}
+                          data-src-light={`https://cdn.simpleicons.org/${skill.slug}`}
+                          class="sk-tile-icon"
+                          width="28"
+                          height="28"
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <span class="sk-tile-fallback">{"</>"}</span>
+                      )}
+                    </div>
+
                     <span class="sk-tile-name">{skill.name}</span>
-                    <span class="sk-tile-hint" data-i18n="skills.clickHint">
-                      Click to explore
-                    </span>
                   </button>
                 ))}
               </div>
@@ -178,19 +177,6 @@ const allSkillsData = skillGroups.flatMap((g) =>
         <div class="skm-meta" id="skmMeta"></div>
         <h3 class="skm-name" id="skmName"></h3>
         <p class="skm-since" id="skmSince"></p>
-      </div>
-    </div>
-
-    <!-- Proficiency bar -->
-    <div class="skm-level-wrap">
-      <div class="skm-level-header">
-        <span class="skm-level-label" data-i18n="skills.modal.proficiency"
-          >Proficiency</span
-        >
-        <span class="skm-level-value" id="skmLevelValue"></span>
-      </div>
-      <div class="skm-bar-track">
-        <div class="skm-bar-fill" id="skmBarFill"></div>
       </div>
     </div>
 

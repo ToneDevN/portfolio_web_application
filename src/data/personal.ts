@@ -1,7 +1,7 @@
 export const personal = {
-    name: 'Nawamin Comjun',
+    name: 'Nawamin Khamchan',
     handle: 'ToneDev',
-    email: 'hello@yourname.dev',
+    email: 'tontaladtop@gmail.com',
     location: 'Bangkok, Thailand',
     locationEmoji: '🇹🇭',
     available: true,
@@ -16,24 +16,23 @@ export const navItems = [
 ];
 
 export const socials = [
-    { label: 'GitHub', href: '#', icon: 'github' },
-    { label: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { label: 'Twitter', href: '#', icon: 'twitter' },
-    { label: 'Email', href: 'mailto:hello@yourname.dev', icon: 'mail' },
+    { label: 'GitHub', href: 'https://github.com/ToneDevN', icon: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nawamin-comjun-223355226', icon: 'linkedin' },
+    { label: 'Email', href: 'mailto:tontaladtop@gmail.com', icon: 'mail' },
 ];
 
 export const contactInfo = [
-    { labelKey: 'contact.info.email', value: 'hello@yourname.dev', href: 'mailto:hello@yourname.dev', icon: 'mail' },
+    { labelKey: 'contact.info.email', value: 'tontaladtop@gmail.com', href: 'mailto:tontaladtop@gmail.com', icon: 'mail' },
     { labelKey: 'contact.info.location', value: 'Bangkok, Thailand', href: '#', icon: 'map' },
-    { labelKey: 'contact.info.github', value: '@yourhandle', href: 'https://github.com/yourhandle', icon: 'github' },
-    { labelKey: 'contact.info.linkedin', value: 'linkedin.com/in/yourname', href: 'https://linkedin.com/in/yourname', icon: 'linkedin' },
+    { labelKey: 'contact.info.github', value: '@ToneDevN', href: 'https://github.com/ToneDevN', icon: 'github' },
+    { labelKey: 'contact.info.linkedin', value: 'linkedin.com/in/nawamin', href: 'https://www.linkedin.com/in/nawamin-comjun-223355226', icon: 'linkedin' },
 ];
 
 export const aboutStats = [
     { value: '3+', labelKey: 'about.stat.years' },
     { value: '50+', labelKey: 'about.stat.projects' },
-    { value: '20+', labelKey: 'about.stat.clients' },
-    { value: '10+', labelKey: 'about.stat.contributions' },
+    { value: '5+', labelKey: 'about.stat.clients' },
+    { value: '∞', labelKey: 'about.stat.learning' },
 ];
 
-export const aboutTags = ['TypeScript', 'React', 'Node.js', 'Astro', 'UI/UX'];
+export const aboutTags = ['Algorithmic Mastery', 'Performance Engineering', 'Systemic Learning', 'TypeScript', 'Rust'];

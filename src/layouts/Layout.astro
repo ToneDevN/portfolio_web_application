@@ -1,4 +1,6 @@
 ---
+import SEOJsonLd from "../components/SEOJsonLd.astro";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -18,6 +20,9 @@ const {
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/Tonedev.svg" />
     <title>{title}</title>
+
+    <!-- JSON-LD Structured Data (Bilingual TH / EN) -->
+    <SEOJsonLd />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

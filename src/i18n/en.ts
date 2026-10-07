@@ -11,24 +11,24 @@ export const en = {
     // ── Hero ─────────────────────────────────────────────────────
     'hero.available': 'Available for work',
     'hero.greeting': "Hey, I'm",
-    'hero.name': 'Nawamin Comjun',
+    'hero.name': 'Nawamin Khamchan',
     'hero.description':
-        'I craft <strong>beautiful digital experiences</strong> that merge thoughtful design with clean, performant code. Let\'s build something extraordinary together.',
+        '<strong>Engineering High-Performance Systems with Algorithmic Precision.</strong> CS student focused on data structures, performance optimization, and building systems that are low-latency, durable, and resource-efficient.',
     'hero.cta.work': 'View My Work',
     'hero.cta.talk': "Let's Talk",
     'hero.findMe': 'Find me →',
     'hero.scroll': 'scroll',
-    'hero.roles': 'Full Stack Developer,Software Engineer,DevOps Engineer,Problem Solver',
+    'hero.roles': 'Performance Engineer,Full Stack Developer,Systems Engineer,Researcher',
 
     // ── About ────────────────────────────────────────────────────
     'about.subtitle': 'About Me',
-    'about.title': 'Crafting digital',
-    'about.titleHighlight': 'experiences',
-    'about.titleEnd': 'with purpose & passion',
+    'about.title': 'Engineering',
+    'about.titleHighlight': 'High-Performance',
+    'about.titleEnd': 'Systems',
     'about.p1':
-        "Hi! I'm <strong>Nawamin Comjun</strong>, a passionate full-stack developer based in Bangkok, Thailand. I specialize in building modern, performant web applications that deliver exceptional user experiences.",
+        "I'm <strong>Nawamin Khamchan</strong>, a Computer Science student who sees Data Structures & Algorithms not as interview prep, but as a <strong>toolbox for solving real problems at the right complexity</strong>. I focus on understanding software deeply: choosing the right data structure, measuring what's actually slow, and building systems that are low-latency, durable, and resource-efficient.",
     'about.p2':
-        "When I'm not coding, you'll find me exploring new design trends, contributing to open source, or experimenting with creative tech. I believe great software lives at the intersection of <strong>beautiful design</strong> and <strong>solid engineering</strong>.",
+        "My work spans <strong>Performance Engineering</strong> (profile-driven optimization, benchmarking every change), <strong>Algorithmic Mastery</strong> (DSA foundations), and <strong>Systemic Learning</strong> (turning raw information into actionable knowledge). I build full-stack products for freelance clients and conduct research in adaptive learning systems.",
     'about.available': '⚡ Open to work',
     'about.location': 'Bangkok, TH 🇹🇭',
     'about.downloadCV': 'Download CV',
@@ -39,13 +39,13 @@ export const en = {
     'about.stat.contributions': 'Contributions',
 
     // ── Skills ───────────────────────────────────────────────────
-    'skills.subtitle': 'What I Work With',
+    'skills.subtitle': 'Core Expertise',
     'skills.title': 'Skills &',
-    'skills.titleHighlight': 'Stack',
+    'skills.titleHighlight': 'Capabilities',
     'skills.clickHint': 'Click to explore',
-    'skills.tab.frontend': 'Frontend',
-    'skills.tab.backend': 'Backend',
-    'skills.tab.devops': 'Tools & DevOps',
+    'skills.tab.fullstack': 'Full-Stack / Backend',
+    'skills.tab.systems': 'Systems & Performance',
+    'skills.tab.ai': 'AI / Research',
     'skills.stat.years': 'Years',
     'skills.stat.projects': 'Projects',
     'skills.stat.tech': 'Tech',
@@ -104,6 +104,48 @@ export const en = {
     'skills.bun.desc':
         'All-in-one JavaScript runtime and toolkit. Blazing fast installs, test runner, and bundler.',
 
+    // Full-Stack / Backend Skills
+    'skills.go.desc':
+        'Systems programming language emphasizing concurrency, performance, and reliability. Building microservices and CLI tools.',
+    'skills.php.desc':
+        'Server-side language for building robust backend systems. Experienced with Laravel framework and MySQL/PostgreSQL.',
+    'skills.prisma.desc':
+        'Type-safe ORM for Node.js and TypeScript. Streamlined database migrations and developer experience.',
+
+    // Systems & Performance Skills
+    'skills.rust.desc':
+        'Memory-safe systems language enabling low-latency, high-performance applications. LSM-Tree KV store development.',
+    'skills.c.desc':
+        'Low-level programming for performance-critical systems. Understanding memory layout, CPU behavior, and optimization.',
+    'skills.dsa.desc':
+        'Deep knowledge of fundamental data structures: Skip Lists, Hash Tables, B+ Trees, Heaps, Graphs, LSM-Trees, Inverted Indexes.',
+    'skills.algo.desc':
+        'Algorithm design and analysis: Dynamic Programming, Graph Traversal, Lock-Free Concurrency, Consensus algorithms.',
+    'skills.profiling.desc':
+        'Using tools like perf, flamegraphs, and custom benchmarks to identify bottlenecks in CPU, memory, and I/O.',
+    'skills.memory.desc':
+        'Deep understanding of memory allocation patterns, cache locality, SIMD optimization, and CPU cache behavior.',
+    'skills.concurrency.desc':
+        'Building concurrent systems with async/await, thread pools, lock-free data structures, and distributed systems.',
+    'skills.mit.desc':
+        'MIT 6.172 Performance Engineering methodology: Baseline → Profile → Optimize → Measure. Validated by benchmarks.',
+
+    // AI / Research Skills
+    'skills.graphrag.desc':
+        'Extracting knowledge graphs from documents and building retrieval-augmented generation systems without hallucination.',
+    'skills.kg.desc':
+        'Designing and querying knowledge graphs, entity-relationship modeling, and semantic reasoning over connected data.',
+    'skills.llm.desc':
+        'Integrating LLMs (Gemini API) into applications. Prompt engineering, fine-tuning, and building reliable AI systems.',
+    'skills.neo4j.desc':
+        'Graph database for modeling relationships. Cypher query language, APOC procedures, and graph algorithms.',
+    'skills.nlp.desc':
+        'Natural Language Processing: text preprocessing, embeddings, semantic similarity, and document understanding.',
+    'skills.spaced.desc':
+        'Spaced Repetition algorithm for optimal learning retention. Research into learning science and cognitive psychology.',
+    'skills.kt.desc':
+        'Knowledge Tracing (PKT): modeling student understanding over time to personalize learning sequences.',
+
     // ── Projects ─────────────────────────────────────────────────
     'projects.subtitle': 'My Work',
     'projects.title': 'Featured',
@@ -111,26 +153,33 @@ export const en = {
     'projects.viewAll': 'All Projects →',
     'projects.featured': '★ Featured',
     'projects.liveDemo': 'Live Demo',
-    'projects.code': 'Code',
+    'projects.code': 'Source Code',
+    'projects.filter.all': 'All Work',
+    'projects.filter.ai': 'AI & GraphRAG',
+    'projects.filter.fullstack': 'Full-Stack',
+    'projects.filter.systems': 'Systems & Rust',
+    'projects.cat.ai': 'AI & Research',
+    'projects.cat.fullstack': 'Full-Stack & Backend',
+    'projects.cat.systems': 'Systems Engineering',
+    'projects.clickHint': 'Click for details',
+    'projects.modal.techStack': 'Tech Stack',
+    'projects.modal.keyHighlights': 'Architecture Highlights',
 
-    'projects.nexui.title': 'NexUI Dashboard',
-    'projects.nexui.desc':
-        'Comprehensive analytics dashboard with real-time data visualization, dark/light mode, and customizable widgets for enterprise teams.',
-    'projects.astroshop.title': 'AstroShop',
-    'projects.astroshop.desc':
-        'Full-stack e-commerce with Astro SSG, headless CMS integration, and edge-deployed serverless checkout flow.',
-    'projects.devsync.title': 'DevSync API',
-    'projects.devsync.desc':
-        'High-performance REST/GraphQL API serving 100k+ req/day with JWT auth, rate limiting, and automated CI/CD pipelines.',
-    'projects.portfolioai.title': 'PortfolioAI',
-    'projects.portfolioai.desc':
-        'AI-powered portfolio generator creating personalized sites from resume data using GPT-4 and smart templates.',
-    'projects.tonechat.title': 'ToneChat',
-    'projects.tonechat.desc':
-        'Real-time messaging app with E2E encryption, file sharing, and voice notes built with WebSocket and WebRTC.',
-    'projects.cloudnotes.title': 'CloudNotes',
-    'projects.cloudnotes.desc':
-        'Minimalist markdown note-taking with offline support, cloud sync, and collaborative editing powered by CRDTs.',
+    'projects.learner.title': 'Learner Support System',
+    'projects.learner.desc':
+        'Adaptive microlearning review system using GraphRAG and Knowledge Tracing. Extracts knowledge graphs from teaching materials, generates targeted questions by Bloom\'s Taxonomy, and schedules reviews based on forgetting curves.',
+    'projects.business.title': 'Business Operations Platform',
+    'projects.business.desc':
+        'Full-stack operations platform for SMEs. Features: Customer portal for orders, Staff dashboard for management, Business analytics, RBAC, filtering & pagination, order tracking.',
+    'projects.martify.title': 'Martify — POS System',
+    'projects.martify.desc':
+        'Production POS system for retail shops. Product management, order processing, payment handling, sales reporting, receipt printing. Built with Laravel and containerized with Docker.',
+    'projects.kvstore.title': 'High-Performance KV Store',
+    'projects.kvstore.desc':
+        'LSM-Tree based key-value storage engine in Rust. Performance Engineering final project following MIT 6.172 methodology. Features: MemTable, WAL, SSTable, compaction strategies with profile-driven optimization.',
+    'projects.columnar.title': 'Fast Columnar File Reader',
+    'projects.columnar.desc':
+        'High-performance Parquet/columnar file reader optimized with SIMD and memory mapping. Designed for bulk analytics workloads requiring maximum throughput.',
 
     // ── Contact ──────────────────────────────────────────────────
     'contact.subtitle': 'Get In Touch',
@@ -157,10 +206,10 @@ export const en = {
     'contact.form.successMsg': "Thanks! I'll reply within 24 hours.",
 
     // ── Footer ───────────────────────────────────────────────────
-    'footer.tagline': 'Crafting beautiful digital experiences at the intersection of design and engineering.',
+    'footer.tagline': 'Engineering High-Performance Systems with Algorithmic Precision — where data structures meet real-world optimization.',
     'footer.navigation': 'Navigation',
     'footer.connect': "Let's Connect",
-    'footer.rights': '© {year} Nawamin Comjun. All rights reserved.',
+    'footer.rights': '© {year} Nawamin Khamchan. All rights reserved.',
     'footer.madeWith': 'Made with ♥ using Astro',
     'footer.backToTop': 'Back to top',
 };
