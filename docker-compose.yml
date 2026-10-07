@@ -9,6 +9,8 @@ services:
     restart: unless-stopped
     ports:
       - "8000:80"
+    networks:
+      - web-network
     healthcheck:
       test: [ "CMD", "wget", "-qO-", "http://localhost/" ]
       interval: 30s
@@ -33,3 +35,7 @@ services:
       - NODE_ENV=development
     profiles:
       - dev
+
+networks:
+  web-network:
+    external: true
