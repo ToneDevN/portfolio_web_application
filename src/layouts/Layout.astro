@@ -1,4 +1,6 @@
 ---
+import SEOJsonLd from "../components/SEOJsonLd.astro";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -15,15 +17,34 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/Tonedev.svg" />
-    <title>{title}</title>
+    <!-- Canonical URL & Sitemap -->
+    <link rel="canonical" href={Astro.url.href} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Google Fonts -->
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL("/logo.png", Astro.site)} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="th_TH" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/logo.png", Astro.site)} />
+
+    <!-- JSON-LD Structured Data (Bilingual TH / EN) -->
+    <SEOJsonLd />
+
+    <!-- Google Fonts (Formal & Executive Typography: IBM Plex Sans Thai, Plus Jakarta Sans, Inter, JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -40,7 +61,7 @@ const {
     </div>
 
     <!-- Scroll Progress Bar -->
-    <div id="scroll-progress"></div>
+    <!-- <div id="scroll-progress"></div> -->
 
     <slot />
 
@@ -75,21 +96,30 @@ const {
         { passive: true },
       );
 
-      // ── Intersection Observer — Scroll Reveal ───────
+      // ── Intersection Observer — Scroll Reveal (Optimized for macOS Trackpad) ──
       const observer = new IntersectionObserver(
-        (entries) => {
+        (entries, obs) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("visible");
+              obs.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.1 },
+        {
+          rootMargin: "180px 0px 120px 0px", // Pre-trigger 180px before entering viewport
+          threshold: 0,
+        },
       );
 
-      document
-        .querySelectorAll(".reveal")
-        .forEach((el) => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 180) {
+          el.classList.add("visible");
+        } else {
+          observer.observe(el);
+        }
+      });
 
       // ── Active Nav Link ─────────────────────────────
       const sections = document.querySelectorAll("section[id]");

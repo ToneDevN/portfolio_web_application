@@ -12,27 +12,27 @@ export const th: Record<TranslationKey, string> = {
 
     // ── Hero ─────────────────────────────────────────────────────
     'hero.available': 'พร้อมรับงาน',
-    'hero.greeting': 'สวัสดี, ฉันชื่อ',
+    'hero.greeting': 'สวัสดีครับ, ผมชื่อ',
     'hero.name': 'นวมินทร์ คำจันทร์',
     'hero.description':
-        'ฉันสร้าง<strong>ประสบการณ์ดิจิทัลที่สวยงาม</strong>ที่ผสมผสานการออกแบบที่รอบคอบเข้ากับโค้ดที่สะอาดและมีประสิทธิภาพ มาสร้างสิ่งที่ยอดเยี่ยมด้วยกัน',
+        '<strong>วิศวกรระบบประสิทธิภาพสูงด้วยความแม่นยำด้านอัลกอริทึม</strong> นักศึกษาเทคโนโลยีสารสนเทศที่มุ่งเน้นในโครงสร้างข้อมูล การปรับปรุงประสิทธิภาพ และการสร้างระบบที่มีค่าแฝงต่ำ ทนทาน และใช้ทรัพยากรอย่างมีประสิทธิภาพ',
     'hero.cta.work': 'ดูผลงาน',
     'hero.cta.talk': 'ติดต่อฉัน',
     'hero.findMe': 'ติดตามฉัน →',
     'hero.scroll': 'เลื่อนลง',
-    'hero.roles': 'Full Stack Developer,Software Engineer,DevOps Engineer,นักแก้ปัญหา',
+    'hero.roles': 'วิศวกรประสิทธิภาพ,นักพัฒนา Full Stack,วิศวกรระบบ,นักวิจัย',
 
     // ── About ────────────────────────────────────────────────────
     'about.subtitle': 'เกี่ยวกับฉัน',
-    'about.title': 'สร้างสรรค์',
-    'about.titleHighlight': 'ประสบการณ์ดิจิทัล',
-    'about.titleEnd': 'ด้วยเป้าหมายและความหลงใหล',
+    'about.title': 'วิศวกรระบบ',
+    'about.titleHighlight': 'ประสิทธิภาพสูง',
+    'about.titleEnd': '',
     'about.p1':
-        "สวัสดีครับ! ฉันชื่อ <strong>นวมินทร์ คำจันทร์</strong> นักพัฒนา Full-Stack ที่มีความมุ่งมั่นจากกรุงเทพมหานคร ฉันเชี่ยวชาญในการสร้างเว็บแอปพลิเคชันสมัยใหม่ที่มีประสิทธิภาพสูง",
+        "ผมชื่อ <strong>นวมินทร์ คำจันทร์</strong> นักศึกษาเทคโนโลยีสารสนเทศที่ไม่ได้เห็น Data Structures & Algorithms เพียงแค่เตรียมสอบสัมภาษณ์ แต่เป็น<strong>กล่องเครื่องมือสำหรับแก้ปัญหาในความซับซ้อนที่เหมาะสม</strong> ฉันมุ่งเน้นในการเข้าใจซอฟต์แวร์ลึก: เลือกโครงสร้างข้อมูลที่ถูก วัดสิ่งที่ช้าจริงๆ และสร้างระบบที่มีค่าแฝงต่ำ ทนทาน และใช้ทรัพยากรอย่างมีประสิทธิภาพ",
     'about.p2':
-        "ในเวลาว่าง ฉันชอบสำรวจเทรนด์การออกแบบใหม่ๆ มีส่วนร่วมในโปรเจกต์โอเพนซอร์ส หรือทดลองกับเทคโนโลยีสร้างสรรค์ ฉันเชื่อว่าซอฟต์แวร์ที่ยอดเยี่ยมอยู่ที่จุดตัดของ<strong>การออกแบบที่สวยงาม</strong>และ<strong>วิศวกรรมที่มั่นคง</strong>",
+        "งานของฉันขยายข้าม<strong>วิศวกรประสิทธิภาพ</strong> (การปรับปรุงที่ขับเคลื่อนด้วยโปรไฟล์ เบนช์มาร์ก) <strong>ความเชี่ยวชาญด้านอัลกอริทึม</strong> (ฐาน DSA) และ<strong>การเรียนรู้ที่เป็นระบบ</strong> (เปลี่ยนข้อมูลดิบเป็นความรู้ที่ใช้ได้) ผมสร้างผลิตภัณฑ์ Full-Stack สำหรับลูกค้า Freelance และดำเนินการวิจัยเกี่ยวกับระบบการเรียนรู้ที่ปรับตัวได้",
     'about.available': '⚡ พร้อมรับงาน',
-    'about.location': 'กรุงเทพฯ, TH 🇹🇭',
+    'about.location': 'นครพนม, ประเทศไทย 🇹🇭',
     'about.downloadCV': 'ดาวน์โหลด CV',
     'about.letsConnect': 'ติดต่อฉัน',
     'about.stat.years': 'ปีประสบการณ์',
@@ -41,13 +41,13 @@ export const th: Record<TranslationKey, string> = {
     'about.stat.contributions': 'การมีส่วนร่วม',
 
     // ── Skills ───────────────────────────────────────────────────
-    'skills.subtitle': 'เครื่องมือที่ฉันใช้',
+    'skills.subtitle': 'ความเชี่ยวชาญหลัก',
     'skills.title': 'ทักษะ &',
-    'skills.titleHighlight': 'สแต็ก',
+    'skills.titleHighlight': 'ความสามารถ',
     'skills.clickHint': 'คลิกเพื่อดูรายละเอียด',
-    'skills.tab.frontend': 'Frontend',
-    'skills.tab.backend': 'Backend',
-    'skills.tab.devops': 'เครื่องมือ & DevOps',
+    'skills.tab.fullstack': 'Full-Stack / Backend',
+    'skills.tab.systems': 'ระบบ & ประสิทธิภาพ',
+    'skills.tab.ai': 'AI / วิจัย',
     'skills.stat.years': 'ปี',
     'skills.stat.projects': 'โปรเจกต์',
     'skills.stat.tech': 'เทคโนโลยี',
@@ -113,26 +113,33 @@ export const th: Record<TranslationKey, string> = {
     'projects.viewAll': 'ดูทั้งหมด →',
     'projects.featured': '★ เด่น',
     'projects.liveDemo': 'ดูสด',
-    'projects.code': 'โค้ด',
+    'projects.code': 'ซอร์สโค้ด',
+    'projects.filter.all': 'ผลงานทั้งหมด',
+    'projects.filter.ai': 'AI & GraphRAG',
+    'projects.filter.fullstack': 'Full-Stack',
+    'projects.filter.systems': 'ระบบ & Rust',
+    'projects.cat.ai': 'AI & วิจัย',
+    'projects.cat.fullstack': 'Full-Stack & Backend',
+    'projects.cat.systems': 'วิศวกรรมระบบ',
+    'projects.clickHint': 'คลิกเพื่อดูรายละเอียด',
+    'projects.modal.techStack': 'เทคโนโลยีที่ใช้',
+    'projects.modal.keyHighlights': 'จุดเด่นสถาปัตยกรรม',
 
-    'projects.nexui.title': 'NexUI Dashboard',
-    'projects.nexui.desc':
-        'Dashboard วิเคราะห์ข้อมูลครบวงจรพร้อม visualization แบบ real-time, dark/light mode และ widget ที่ปรับแต่งได้สำหรับทีม enterprise',
-    'projects.astroshop.title': 'AstroShop',
-    'projects.astroshop.desc':
-        'E-commerce แบบ Full-Stack ด้วย Astro SSG, headless CMS และ checkout serverless ที่ deploy บน edge',
-    'projects.devsync.title': 'DevSync API',
-    'projects.devsync.desc':
-        'API ประสิทธิภาพสูงรองรับ 100k+ req/วัน พร้อม JWT auth, rate limiting และ CI/CD pipeline อัตโนมัติ',
-    'projects.portfolioai.title': 'PortfolioAI',
-    'projects.portfolioai.desc':
-        'Generator portfolio ด้วย AI สร้างเว็บไซต์ส่วนตัวจากข้อมูล resume โดยใช้ GPT-4 และ template อัจฉริยะ',
-    'projects.tonechat.title': 'ToneChat',
-    'projects.tonechat.desc':
-        'แอปส่งข้อความ real-time พร้อมการเข้ารหัส E2E, แชร์ไฟล์ และ voice notes ด้วย WebSocket และ WebRTC',
-    'projects.cloudnotes.title': 'CloudNotes',
-    'projects.cloudnotes.desc':
-        'Note-taking markdown แบบ minimalist พร้อม offline support, cloud sync และ collaborative editing ด้วย CRDTs',
+    'projects.learner.title': 'ระบบสนับสนุนผู้เรียน',
+    'projects.learner.desc':
+        'ระบบทบทวนความรู้ปรับตามตัวผู้เรียน ใช้ GraphRAG และ Knowledge Tracing สกัด Knowledge Graph จากเนื้อหาการสอน สร้างคำถาม Microlearning ตามพระคัมภีร์ Bloom\'s Taxonomy และจัดตารางทบทวน',
+    'projects.business.title': 'แพลตฟอร์มจัดการการดำเนินงานธุรกิจ',
+    'projects.business.desc':
+        'แพลตฟอร์ม Full-Stack สำหรับ SME: Customer Portal สำหรับคำสั่งซื้อ Staff Dashboard สำหรับจัดการ Business Analytics RBAC Filtering & Pagination Order Tracking',
+    'projects.martify.title': 'Martify — ระบบ POS',
+    'projects.martify.desc':
+        'ระบบ POS สำหรับร้านค้าปลีก: จัดการสินค้า ประมวลผลคำสั่งซื้อ การชำระเงิน รายงานยอดขาย พิมพ์ใบเสร็จ สร้างด้วย Laravel และ containerize ด้วย Docker',
+    'projects.kvstore.title': 'ระบบเก็บ KV ประสิทธิภาพสูง',
+    'projects.kvstore.desc':
+        'KV Storage Engine ที่ใช้ LSM-Tree ด้วย Rust โปรเจกต์ Performance Engineering ตามวิธี MIT 6.172 MemTable WAL SSTable Compaction Strategies ที่ optimize ด้วย profiling',
+    'projects.columnar.title': 'Columnar File Reader ที่เร็ว',
+    'projects.columnar.desc':
+        'Parquet/Columnar file reader ที่ optimize ด้วย SIMD และ memory mapping ออกแบบสำหรับ bulk analytics workloads ที่ต้องการ maximum throughput',
 
     // ── Contact ──────────────────────────────────────────────────
     'contact.subtitle': 'ติดต่อฉัน',
@@ -159,10 +166,10 @@ export const th: Record<TranslationKey, string> = {
     'contact.form.successMsg': 'ขอบคุณ! จะตอบกลับภายใน 24 ชั่วโมง',
 
     // ── Footer ───────────────────────────────────────────────────
-    'footer.tagline': 'สร้างสรรค์ประสบการณ์ดิจิทัลที่สวยงามที่จุดตัดระหว่างการออกแบบและวิศวกรรม',
+    'footer.tagline': 'วิศวกรประสิทธิภาพระบบด้วยความแม่นยำด้านอัลกอริทึม — ที่ซึ่งโครงสร้างข้อมูลพบปะกับการปรับปรุงประสิทธิภาพในโลกจริง',
     'footer.navigation': 'ลิงก์',
     'footer.connect': 'ช่องทางติดต่อ',
-    'footer.rights': '© {year} นวมินทร์ คมจัน สงวนลิขสิทธิ์',
-    'footer.madeWith': 'สร้างด้วย ♥ โดยใช้ Astro',
+    'footer.rights': '© 2026 นวมินทร์ คำจันทร์ สงวนลิขสิทธิ์',
+    'footer.madeWith': 'สร้างด้วย Astro',
     'footer.backToTop': 'กลับขึ้นด้านบน',
 };

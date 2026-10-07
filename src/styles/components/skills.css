@@ -31,7 +31,7 @@
     top: -160px;
     left: -180px;
     background: radial-gradient(circle,
-            rgba(0, 180, 255, 0.13) 0%,
+            rgba(0, 180, 255, 0.15) 0%,
             transparent 70%);
 }
 
@@ -41,7 +41,7 @@
     bottom: -80px;
     right: 4%;
     background: radial-gradient(circle,
-            rgba(255, 26, 110, 0.11) 0%,
+            rgba(255, 26, 110, 0.13) 0%,
             transparent 70%);
 }
 
@@ -50,7 +50,7 @@
     top: 48%;
     right: -1%;
     transform: translateY(-50%);
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-weight: 800;
     font-size: clamp(5rem, 14vw, 11rem);
     letter-spacing: -0.04em;
@@ -106,7 +106,7 @@ html.light .sk-ghost {
 }
 
 .sk-stat-val {
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-size: clamp(1.4rem, 2.4vw, 1.9rem);
     font-weight: 700;
     line-height: 1;
@@ -140,16 +140,17 @@ html.light .sk-ghost {
 .sk-container {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0 1.5rem 1.5rem;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 1.25rem 1.75rem 1.75rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
 @media (max-width: 640px) {
     .sk-container {
-        padding: 0 1rem 1rem;
-        border-radius: 14px;
+        padding: 0.75rem 1rem 1rem;
+        border-radius: 16px;
     }
 }
 
@@ -162,15 +163,22 @@ html.light .sk-ghost {
 .sk-tabs {
     display: flex;
     position: relative;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.sk-tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .sk-tab {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.72rem 1.1rem;
+    gap: 0.5rem;
+    padding: 0.8rem 1.25rem;
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     letter-spacing: 0.03em;
     color: var(--text-muted);
     background: transparent;
@@ -178,9 +186,10 @@ html.light .sk-ghost {
     cursor: pointer;
     position: relative;
     z-index: 1;
-    transition: color 0.2s ease;
-    border-radius: 8px 8px 0 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+    border-radius: 10px 10px 0 0;
     margin-bottom: -1px;
+    white-space: nowrap;
 }
 
 .sk-tab:hover {
@@ -217,28 +226,27 @@ html.light .sk-ghost {
 }
 
 .sk-tab-count {
-    font-size: 0.6rem;
-    padding: 1px 6px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 2px 7px;
     border-radius: 999px;
     background: var(--bg-3);
     color: var(--text-muted);
-    transition:
-        background 0.2s,
-        color 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
 .sk-tab--blue.is-active .sk-tab-count {
-    background: rgba(0, 180, 255, 0.12);
+    background: rgba(0, 180, 255, 0.15);
     color: var(--blue);
 }
 
 .sk-tab--pink.is-active .sk-tab-count {
-    background: rgba(255, 26, 110, 0.12);
+    background: rgba(255, 26, 110, 0.15);
     color: var(--pink);
 }
 
 .sk-tab--mixed.is-active .sk-tab-count {
-    background: rgba(0, 180, 255, 0.1);
+    background: rgba(0, 180, 255, 0.12);
     color: var(--blue);
 }
 
@@ -247,21 +255,22 @@ html.light .sk-ghost {
     position: absolute;
     bottom: -1px;
     left: 0;
-    height: 2px;
+    height: 2.5px;
     width: 0;
-    border-radius: 2px 2px 0 0;
+    border-radius: 3px 3px 0 0;
     background: var(--blue);
     pointer-events: none;
     z-index: 2;
     transition:
-        transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         background 0.25s ease;
+    box-shadow: 0 0 12px var(--blue);
 }
 
 /* ── Panels ─────────────────────────────────────────── */
 .sk-panels {
-    min-height: 240px;
+    min-height: 200px;
 }
 
 .sk-panel {
@@ -272,69 +281,152 @@ html.light .sk-ghost {
     display: block;
 }
 
-/* ── Skill Grid ─────────────────────────────────────── */
-.sk-grid {
+/* ── 8-Column Skill Grid ──────────────────────────────── */
+.sk-grid-8col {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.85rem;
 }
 
-@media (max-width: 900px) {
-    .sk-grid {
+@media (max-width: 1280px) {
+    .sk-grid-8col {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .sk-grid-8col {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .sk-grid-8col {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 520px) {
-    .sk-grid {
+@media (max-width: 480px) {
+    .sk-grid-8col {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* ── Skill Tile ─────────────────────────────────────── */
+/* ── Skill Tile (Icon + Name Only) ────────────────────── */
 .sk-tile {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 1.35rem 0.75rem 1.1rem;
-    background: var(--card-bg);
+    gap: 0.75rem;
+    padding: 1.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 16px;
     cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition:
-        transform 0.24s ease,
-        border-color 0.24s ease,
-        box-shadow 0.24s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: relative;
     overflow: hidden;
-}
-
-.sk-tile-hint {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    opacity: 0;
-    transform: translateY(4px);
+    text-align: center;
     transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-    text-transform: uppercase;
+        transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        background 0.28s ease;
 }
 
-.sk-tile:hover .sk-tile-hint {
-    opacity: 0.7;
-    transform: translateY(0);
+.sk-tile-spotlight {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 180, 255, 0.18), transparent 80%);
 }
 
-/* Entrance animation (JS-driven) */
+.sk-tile:hover .sk-tile-spotlight {
+    opacity: 1;
+}
+
+.sk-tile-icon-box {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sk-tile:hover .sk-tile-icon-box {
+    transform: scale(1.1) translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.sk-tile-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.sk-tile:hover .sk-tile-icon {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.sk-tile-fallback {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.sk-tile-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-2);
+    line-height: 1.25;
+    margin: 0;
+    transition: color 0.2s ease;
+    word-break: break-word;
+}
+
+.sk-tile:hover .sk-tile-name {
+    color: var(--text);
+}
+
+/* Tile Hover Effects */
+.sk-tile--blue:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 180, 255, 0.45);
+    box-shadow: 0 12px 28px rgba(0, 180, 255, 0.15);
+}
+
+.sk-tile--pink:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 26, 110, 0.45);
+    box-shadow: 0 12px 28px rgba(255, 26, 110, 0.15);
+}
+
+.sk-tile--mixed:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 180, 255, 0.4);
+    box-shadow: 0 12px 28px rgba(0, 180, 255, 0.12);
+}
+
+/* Entrance animation */
 .sk-tile.sk-anim {
     animation: tileIn 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation-delay: calc(var(--i, 0) * 0.045s);
+    animation-delay: calc(var(--i, 0) * 0.035s);
 }
 
 @keyframes tileIn {
@@ -342,79 +434,10 @@ html.light .sk-ghost {
         opacity: 0;
         transform: translateY(12px) scale(0.95);
     }
-
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-.sk-tile--blue:hover {
-    transform: translateY(-4px);
-    border-color: rgba(0, 180, 255, 0.45);
-    box-shadow: 0 10px 32px rgba(0, 180, 255, 0.1);
-}
-
-.sk-tile--pink:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 26, 110, 0.45);
-    box-shadow: 0 10px 32px rgba(255, 26, 110, 0.1);
-}
-
-.sk-tile--mixed:hover {
-    transform: translateY(-4px);
-    border-color: rgba(0, 180, 255, 0.4);
-    box-shadow: 0 10px 32px rgba(0, 180, 255, 0.08);
-}
-
-.sk-tile-icon {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    opacity: 0.75;
-    filter: brightness(1.1);
-    transition:
-        opacity 0.2s,
-        transform 0.22s ease;
-}
-
-.sk-tile:hover .sk-tile-icon {
-    opacity: 1;
-    transform: scale(1.14);
-}
-
-.sk-tile-fallback {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    height: 28px;
-    display: flex;
-    align-items: center;
-    opacity: 0.55;
-}
-
-.sk-tile-name {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.67rem;
-    letter-spacing: 0.02em;
-    color: var(--text-2);
-    text-align: center;
-    line-height: 1.3;
-    transition: color 0.2s;
-}
-
-.sk-tile:hover .sk-tile-name {
-    color: var(--text);
-}
-
-/* ── Light Mode ─────────────────────────────────────── */
-html.light .sk-tile-icon {
-    filter: none;
-    opacity: 0.85;
-}
-
-html.light .sk-tile:hover .sk-tile-icon {
-    opacity: 1;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -428,11 +451,9 @@ html.light .sk-tile:hover .sk-tile-icon {
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-
-    /* Hidden by default */
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
@@ -456,7 +477,6 @@ html.light .sk-tile:hover .sk-tile-icon {
     box-shadow:
         0 32px 80px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-
     transform: translateY(24px) scale(0.97);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -465,7 +485,6 @@ html.light .sk-tile:hover .sk-tile-icon {
     transform: translateY(0) scale(1);
 }
 
-/* Close button */
 .skm-close {
     position: absolute;
     top: 1.1rem;
@@ -480,10 +499,7 @@ html.light .sk-tile:hover .sk-tile-icon {
     background: var(--bg-3);
     color: var(--text-muted);
     cursor: pointer;
-    transition:
-        background 0.2s,
-        color 0.2s,
-        transform 0.2s;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
 .skm-close:hover {
@@ -492,7 +508,6 @@ html.light .sk-tile:hover .sk-tile-icon {
     transform: rotate(90deg);
 }
 
-/* Header */
 .skm-head {
     display: flex;
     align-items: center;
@@ -541,7 +556,7 @@ html.light .sk-tile:hover .sk-tile-icon {
 }
 
 .skm-name {
-    font-family: "Syne", sans-serif;
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', 'Inter', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text);
@@ -557,48 +572,6 @@ html.light .sk-tile:hover .sk-tile-icon {
     margin: 0;
 }
 
-/* Level bar */
-.skm-level-wrap {
-    margin-bottom: 1.25rem;
-}
-
-.skm-level-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.skm-level-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-.skm-level-value {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.7rem;
-    color: var(--text-2);
-    letter-spacing: 0.02em;
-}
-
-.skm-bar-track {
-    height: 5px;
-    border-radius: 999px;
-    background: var(--bg-3);
-    overflow: hidden;
-}
-
-.skm-bar-fill {
-    height: 100%;
-    border-radius: 999px;
-    width: 0%;
-    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Description */
 .skm-desc {
     font-family: "Inter", sans-serif;
     font-size: 0.87rem;
@@ -607,7 +580,6 @@ html.light .sk-tile:hover .sk-tile-icon {
     margin: 0 0 1.25rem;
 }
 
-/* Tags */
 .skm-tags-label {
     font-family: "JetBrains Mono", monospace;
     font-size: 0.6rem;
@@ -639,7 +611,12 @@ html.light .sk-tile:hover .sk-tile-icon {
     background: color-mix(in srgb, var(--tag-color) 18%, transparent);
 }
 
-/* Light mode modal */
+/* Light mode */
+html.light .sk-tile-icon {
+    filter: none;
+    opacity: 0.85;
+}
+
 html.light .skm-panel {
     box-shadow:
         0 24px 64px rgba(0, 0, 0, 0.12),
@@ -648,15 +625,4 @@ html.light .skm-panel {
 
 html.light .skm-backdrop {
     background: rgba(255, 255, 255, 0.3);
-}
-
-@media (max-width: 520px) {
-    .skm-panel {
-        padding: 1.5rem;
-        border-radius: 20px;
-    }
-
-    .skm-name {
-        font-size: 1.25rem;
-    }
 }
