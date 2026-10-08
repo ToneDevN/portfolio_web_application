@@ -9,13 +9,9 @@ services:
     container_name: profile-web-app
     restart: unless-stopped
     ports:
-<<<<<<< HEAD
       - "8000:80"
     networks:
       - web-network
-=======
-      - "${APP_PORT:-80}:80"
->>>>>>> b95cc623656310a31d8afb7aeefe451238439a01
     healthcheck:
       test: [ "CMD", "wget", "-qO-", "http://localhost/" ]
       interval: 30s
